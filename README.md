@@ -3,7 +3,7 @@ Final project repo for grading
 
 
 Group number 1
-Members: Lucie Gillet, Jovin Leong, Jussi Sakari Jukarainen
+Members: Lucie Gillet, Jovin Leong, Jussi Sakari Jukarainen, Huahua Zheng
 
 Badges for TravisCI and Codecov:
 
