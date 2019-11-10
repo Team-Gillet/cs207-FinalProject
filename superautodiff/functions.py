@@ -75,4 +75,35 @@ def log(x, base=math.e):
     except AttributeError:
         return math.log(x, base)
 
-## sinh(x),cosh(x)...
+
+def sinh(x):
+    try:
+        val = math.sinh(x.val)
+        der = {k: math.cosh(x.val) * v for k, v in x.der.items()}
+        return AutoDiff(x.var, val, der)
+    except ValueError:
+        print("Unvalid Value")
+    except AttributeError:
+        return math.sinh(x)
+
+
+def cosh(x):
+    try:
+        val = math.cosh(x.val)
+        der = {k: math.sinh(x.val) * v for k, v in x.der.items()}
+        return AutoDiff(x.var, val, der)
+    except ValueError:
+        print("Unvalid Value")
+    except AttributeError:
+        return math.cosh(x)
+
+
+def tanh(x):
+    try:
+        val = math.tanh(x.val)
+        der = {k: (1 / (cosh(x.val) ** 2)) * v for k, v in x.der.items()}
+        return AutoDiff(x.var, val, der)
+    except ValueError:
+        print("Unvalid Value")
+    except AttributeError:
+        return 1 / (cosh(x) ** 2)
