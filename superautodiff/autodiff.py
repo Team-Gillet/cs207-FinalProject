@@ -21,16 +21,20 @@ class AutoDiff():
     Counter({'x': 1.0})
     """
 
-    def __init__(self, var, val, der=1.0):
-        if type(var) != set:
-            self.var = set(var)
+    def _init_(self, var, val, der=1.0):
+        if len(set(var)) != len(var): # check that there is no duplicates in the variable names
+            raise IndexError("Duplicated name of variable")
+        elif len(var) != len(der): # check that length of values and derivatives is the same
+            raise ValueError("Different number of values and derivatives")
         else:
             self.var = var
         self.val = val
-        if type(der) != float:
-            self.der = der
+        self.der = {}
+        if type(der) == float or type(der) == int: # only one number for der
+            self.der[var] = der
         else:
-            self.der = Counter({var: der})
+            for ind, d in enumerate(der):
+                self.der[var[ind]] = d
 
     def __add__(self, other):
         try:  # ask forgiveness
