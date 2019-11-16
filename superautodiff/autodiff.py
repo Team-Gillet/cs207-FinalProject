@@ -21,20 +21,17 @@ class AutoDiff():
     Counter({'x': 1.0})
     """
 
-    def _init_(self, var, val, der=1.0):
-        if len(set(var)) != len(var): # check that there is no duplicates in the variable names
-            raise IndexError("Duplicated name of variable")
-        elif len(var) != len(der): # check that length of values and derivatives is the same
-            raise ValueError("Different number of values and derivatives")
+    def __init__(self, var, val, der=1.0):
+        #add exception for using same variable name?
+        if type(var) != set:
+            self.var = set(var)
         else:
             self.var = var
-        self.val = val
-        self.der = {}
-        if type(der) == float or type(der) == int: # only one number for der
-            self.der[var] = der
+        self.val = float(val)
+        if type(der) != float:
+            self.der = der
         else:
-            for ind, d in enumerate(der):
-                self.der[var[ind]] = d
+            self.der = Counter({var: der})
 
     def __add__(self, other):
         try:  # ask forgiveness
@@ -57,7 +54,7 @@ class AutoDiff():
             var = self.var | other.var
             return AutoDiff(var, self.val - other.val, total)
         except AttributeError:
-            return AutoDiff(self.var, self.val - other.val, self.der)
+            return AutoDiff(self.var, self.val - other, self.der)
 
     def __rsub__(self, other):
         return self.__sub__(other)
@@ -87,14 +84,15 @@ class AutoDiff():
         der = {k: value * v for k, v in self.der.items()}
         return AutoDiff(self.var, 1 / self.val, der)
 
-    def __truediv__(self, other):
+    def __truediv__(self,other):
         try:
-            return self * other.reciprocal()
+            return self*other.reciprocal()
         except AttributeError:
-            return AutoDiff(self.var, self.val / other, self.der)
+            der = {k:v/other for k, v in self.der.items()}
+            return AutoDiff(self.var,self.val/other,der)
 
     def __rtruediv__(self, other):
-        return self.__rtruediv__(other)
+        return self.__truediv__(other)
 
     def __pow__(self, power):
         try:

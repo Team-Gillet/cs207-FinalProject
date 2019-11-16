@@ -39,7 +39,7 @@ def test_input_list():
 # differing lengths of inputs
 def test_input_list_missing_val():
     with pytest.raises(ValueError):
-    	x1 = AutoDiff(['x', 'y'], [1])
+    	x1 = AutoDiff(['x', 'y'], [1])	
 
 def test_input_list_missing_var():
     with pytest.raises(ValueError):
@@ -82,7 +82,8 @@ def test_val_is_float():
 # test if .der is dict
 def test_der_is_dict():
     x1 = AutoDiff('x', 2)
-    assert isinstance(x1.der, dict)
+    #TODO: maybe change to dict?
+    assert isinstance(x1.der, Counter)
 
 # test if .der keys are str
 def test_der_keys_are_str():
@@ -242,11 +243,11 @@ def test_sub_autodiff_other_conflicting_val():
 
 ### 3. Multiplication
 
-# f(x) = 3x; f(2) = 6; f'(x) = 3; f'(2) = 6
+# f(x) = 3x; f(2) = 6; f'(x) = 3; f'(2) = 3
 def test_mul_constant():
     x1 = AutoDiff('x', 2)
     f = x1 * 3
-    assert f.der['x'] == 6.0
+    assert f.der['x'] == 3.0
     #Test other attributes
     assert next(iter(f.der)) == 'x' # checks if first key is 'x'
     assert f.var == {'x'} # TODO: change to dict
@@ -261,7 +262,7 @@ def test_mul_str():
 def test_rmul_constant():
     x1 = AutoDiff('x', 2)
     f = 3 * x1
-    assert f.der['x'] == 6.0
+    assert f.der['x'] == 3.0
     #Test other attributes
     assert next(iter(f.der)) == 'x' # checks if first key is 'x'
     assert f.var == {'x'} # TODO: change to dict
@@ -494,124 +495,5 @@ def test_tanh():
 	assert next(iter(f.der)) == 'x' # checks if first key is 'x'
 	assert f.var == {'x'} # TODO: change to dict
 	assert f.val == pytest.approx(np.tanh(0.5))
-
-
-
-###TODO: list inputs intended behavior
-
-# class TestL2:
-
-#     def test_L2_result(self):
-#         assert L2.L2([3.0, 4.0], [1.0, 2.0]) == 8.54400374531753
-    
-#     def test_L2_types(self):
-#         with pytest.raises(ValueError):
-#             L2.L2([1.0, -1.0], [1.0, 3.0, 5.0])
-    
-#     def test_L2_noweights(self):
-#         assert L2.L2([3.0, 4.0]) == 5.0
-
-
-# def test_2x():
-# 	x1 = AutoDiff('x',4)
-# 	x2 = x1*2
-# 	assert x2.der['x'] == 2.0
-
-
-# 	x = AutoDiff('x',4)
-# 	print(x.var)
-# 	print(x.der)
-# 	x = x*2
-# 	print(x.var)
-# 	print("Der should be 2=2")
-# 	print(x.der)
-
-# 	x = AutoDiff('x',4)
-# 	x = x**2
-# 	print(x.var)
-# 	print("Der should be 2x=8")
-# 	print(x.der)
-
-# 	x = AutoDiff('x',4)
-# 	x = x/2
-# 	print(x.var)
-# 	print("Der should be 2/2=1")
-# 	print(x.der)
-
-# 	x = AutoDiff('x',4)
-# 	x = x*x
-# 	print(x.var)
-# 	print("Der should be 2x=8")
-# 	print(x.der)
-
-# 	x = AutoDiff('x',4)
-# 	x = x*x
-# 	print(x.var)
-# 	print("Der should be 2x=8")
-# 	print(x.der)
-
-# 	x = AutoDiff('x',4)
-# 	y = AutoDiff('y',3)
-# 	z = x*y
-# 	print(z.var)
-# 	print("CURRENT TEST: Der should be 4.0, 3.0")
-# 	print(z.der)
-
-# 	x = AutoDiff('x',4)
-# 	y = AutoDiff('y',3)
-# 	x2 = AutoDiff('x',2)
-# 	x = x*y
-# 	print(x.var)
-# 	print("Der should be ?")
-# 	print(x.der)
-# 	x = x*x2
-# 	print(x.var)
-# 	print("Der should be ?")
-# 	print(x.der)
-
-# 	x = AutoDiff('x',4)
-# 	y = AutoDiff('y',3)
-# 	z = AutoDiff('z',2)
-# 	x = x*y*z
-# 	print("Der should be ?")
-# 	print(x.der)
-
-# 	x = AutoDiff('x',2*math.pi)
-# 	x = sin(x)
-# 	print("Der should be 1")
-# 	print(x.der)
-
-# 	x = AutoDiff('x',2*math.pi)
-# 	x = cos(x)
-# 	print("Der should be 0")
-# 	print(x.der)
-
-# 	#should be error
-# 	try:
-# 		x = AutoDiff('x',2*math.pi)
-# 		x = arcsin(x)
-# 		print("Der should be nan")
-# 		print(x.der)
-# 	except:
-# 		pass
-
-# 	try:
-# 		x = AutoDiff('x',0.5)
-# 		x = arcsin(x)
-# 		print("Der should be 1.1547")
-# 		print(x.der)
-# 	except:
-# 		pass
-
-# 	try:
-# 		x = AutoDiff('x',0.5)
-# 		x = arccos(x)
-# 		print("Der should be -1.1547")
-# 		print(x.der)
-# 	except:
-# 		pass
-
-# 	print(x.der['x'])
-
 
 
