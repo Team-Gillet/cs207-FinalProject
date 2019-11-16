@@ -1,6 +1,6 @@
 import numpy as np
 import math
-from superautodiff.autodiff import AutoDiff
+from autodiff import AutoDiff
 
 def sin(x):
     try:
