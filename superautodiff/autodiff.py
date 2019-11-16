@@ -91,8 +91,9 @@ class AutoDiff():
             der = {k:v/other for k, v in self.der.items()}
             return AutoDiff(self.var,self.val/other,der)
 
-    def __rtruediv__(self, other):
-        return self.__truediv__(other)
+    def __rtruediv__(self, other): 
+      #x._rtruediv_(other) <==> other / x
+      return other*self.reciprocal()
 
     def __pow__(self, power):
         try:
