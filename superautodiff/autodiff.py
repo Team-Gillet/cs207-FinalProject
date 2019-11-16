@@ -29,7 +29,7 @@ class AutoDiff():
         else:
             self.var = var
         self.val = val
-        self.der = {}
+        self.der = Counter({})
         if type(der) == float or type(der) == int: # only one number for der
             self.der[var] = der
         else:
