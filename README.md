@@ -1,4 +1,4 @@
-# cs207-FinalProject
+# CS207-FinalProject
 Final project repo for grading
 
 
@@ -12,4 +12,3 @@ Badges for TravisCI and Codecov:
 [![Coverage Status](https://codecov.io/gh/Team-Gillet/cs207-FinalProject/branch/master/graph/badge.svg)](https://codecov.io/gh/Team-Gillet/cs207-FinalProject)
 
 
-[![codecov](https://codecov.io/gh/Team-Gillet/cs207-FinalProject/branch/master/graph/badge.svg)](https://codecov.io/gh/Team-Gillet/cs207-FinalProject)
