@@ -71,7 +71,7 @@ def log(x, base=math.e):
         der = {k: (1 / (x.val * math.log(base))) * v for k, v in x.der.items()}
         return sad.AutoDiff(x.var, val, der)
     except ValueError:
-        print("Unvalid Value")
+        print("Invalid value for mathematical function")
     except AttributeError:
         return math.log(x, base)
 
@@ -82,7 +82,7 @@ def sinh(x):
         der = {k: math.cosh(x.val) * v for k, v in x.der.items()}
         return sad.AutoDiff(x.var, val, der)
     except ValueError:
-        print("Unvalid Value")
+        print("Invalid value for mathematical function")
     except AttributeError:
         return math.sinh(x)
 
@@ -93,7 +93,7 @@ def cosh(x):
         der = {k: math.sinh(x.val) * v for k, v in x.der.items()}
         return sad.AutoDiff(x.var, val, der)
     except ValueError:
-        print("Unvalid Value")
+        print("Invalid value for mathematical function")
     except AttributeError:
         return math.cosh(x)
 
@@ -104,7 +104,7 @@ def tanh(x):
         der = {k: (1 / (cosh(x.val) ** 2)) * v for k, v in x.der.items()}
         return sad.AutoDiff(x.var, val, der)
     except ValueError:
-        print("Unvalid Value")
+        print("Invalid value for mathematical function")
     except AttributeError:
         return 1 / (cosh(x) ** 2)
 
