@@ -123,10 +123,9 @@ class AutoDiff():
 
     def __pow__(self, power):
         """Performs exponentiation of an AutoDiff object with scalars values e.g x**3 """
-        try:
-            value = power * (self.val) ** (power - 1)
-            der = {k: value * v for k, v in self.der.items()}
-            return AutoDiff(self.var, self.val ** power, der)
+        value = power * (self.val) ** (power - 1)
+        der = {k: value * v for k, v in self.der.items()}
+        return AutoDiff(self.var, self.val ** power, der)
 
     def __rpow__(self,power):
         """Performs exponentiation of an AutoDiff object with scalars values e.g. 3**x"""
