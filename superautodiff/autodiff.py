@@ -111,4 +111,47 @@ class AutoDiff():
         except AttributeError:
             return AutoDiff(self.var, self.val ** power, self.der)
 
-
+class AutoDiffVector():
+    def __init__(self, var, val, der=1.0):
+        
+        # Ensure that input vectors are list types
+        if type(var) != list or type(val) != list:
+            raise TypeError("Input array of variables and values need to be of list type")
+        
+        # If der is specified, check that it is a list type
+        if der != 1.0 and type(der) != list:
+            raise TypeError("If derivatives are specified, derivative array needs to be a list")
+        
+        # Ensure that var and val are of the same length
+        if len(var) != len(val):
+            raise KeyError("Input array of variables and values need to be of the same length")
+        
+        # If der is specified, check that it is also of the same length
+        if der != 1.0 and len(der) != len(val):
+            raise KeyError("If derivatives are specified, derivative array needs to be of the same length as the array of variables")
+            
+        # If der is unspecified, create a vector of 1.0 values with length equal to input array
+        if der == 1.0:
+            der = [1.0] * len(var)
+        
+        self.var = var
+        self.val = val
+        self.der = der
+        
+        # If everything checks out, create AutoDiff objects and store in a dictionary
+        self.objects = {}
+        
+        for i in range(len(self.var)):
+            self.objects[self.var[i]] = AutoDiff(self.var[i], self.val[i], self.der[i])
+    
+    def __add__(self, other):
+        
+        for i in len(self.objects):
+            self.objects[self.var[i]] = self.objects[self.var[i]] + other
+        
+        return self.objects
+    
+    def __radd__(self, other):
+        
+        return self.__add__(other)
+        
