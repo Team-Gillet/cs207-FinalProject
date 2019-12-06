@@ -122,35 +122,55 @@ class AutoDiff():
         return other*self.reciprocal()
 
     def __pow__(self, power):
-        """Performs exponentiation of an AutoDiff object with scalars values"""
+        """Performs exponentiation of an AutoDiff object with scalars values e.g x**3 """
         try:
             value = power * (self.val) ** (power - 1)
             der = {k: value * v for k, v in self.der.items()}
             return AutoDiff(self.var, self.val ** power, der)
-        except AttributeError:
-            return AutoDiff(self.var, self.val ** power, self.der)
+
+    def __rpow__(self,power):
+        """Performs exponentiation of an AutoDiff object with scalars values e.g. 3**x"""
+        value =  power**self.val
+        der ={k: value*v*np.log(power) for k, v in self.der.items()}
+        return AutoDiff(self.var, value, der)
 
     def __eq__(self, other):
         """Assesses the equality of two AutoDiff objects"""
-        return self.val == other.val and self.der == other.der
+        try:
+            return self.val == other.val and self.der == other.der
+        except:
+            return False
 
     def __ne__(self, other):
         """Assesses the equality of two AutoDiff objects"""
-        return not self.val == other.val and self.der == other.der
+        return not self.__eq__(other)
 
-    def  __lt__(self, other):
-        """Assesses whether an AutoDiff object value is less than that of another AutoDiff object"""
-        return self.val < other.val
+    def __lt__(self, other):
+        """Assesses whether an AutoDiff object value is less than that of another AutoDiff object/given value"""
+        try:
+            return self.val < other.val
+        except:
+            return self.val < other
 
-    def  __le__():
-        """Assesses whether an AutoDiff object value is less than or equal to that of another AutoDiff object"""
-        return self.val <= other.val
+    def __le__(self, other):
+        """Assesses whether an AutoDiff object value is less than or equal to that of another AutoDiff object/given value"""
+        try:
+            return self.val <= other.val
+        except:
+            return self.val <= other
+            
 
-    def __ge__():
-        """Assesses whether an AutoDiff object value is greater than or equal to that of another AutoDiff object"""
-        return self.val >= other.val
+    def __ge__(self, other):
+        """Assesses whether an AutoDiff object value is greater than or equal to that of another AutoDiff object/given value"""
+        try:
+            return self.val >= other.val
+        except:
+            return self.val >= other
 
     def __gt__(self, other):
-        """Assesses whether an AutoDiff object value is greater than that of another AutoDiff object"""
-        return self.val > other.val
+        """Assesses whether an AutoDiff object value is greater than that of another AutoDiff object/given value"""
+        try:
+            return self.val > other.val
+        except:
+            return self.val > other
 
