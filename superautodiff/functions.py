@@ -107,6 +107,15 @@ def tanh(x):
         print("Invalid value for mathematical function")
     except AttributeError:
         return 1 / (cosh(x) ** 2)
+    
+def sqrt(x):
+  try:
+    return x**0.5
+  except:
+    return np.sqrt(x)
+
+def logistic(x):
+  return 1/(1+exp(-x))
 
 if __name__ == '__main__':
     x1 = sad.AutoDiff('x',1)
