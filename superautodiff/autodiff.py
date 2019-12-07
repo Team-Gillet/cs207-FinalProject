@@ -145,6 +145,61 @@ class AutoDiffVector():
         
         return self.__add__(other)
 
+    def __sub__(self, other):
+
+        objects = []
+        for i in range(len(self.objects)):
+            new_object = self.objects[list(self.objects.keys())[i]] - other
+            objects.append(new_object)
+            
+        return AutoDiffVector(objects)
+
+    def __rsub__(self,other):
+
+        return self.__sub__(other)
+
+    def __mul__(self, other):
+
+        objects = []
+        for i in range(len(self.objects)):
+            new_object = self.objects[list(self.objects.keys())[i]] * other
+            objects.append(new_object)
+            
+        return AutoDiffVector(objects)
+
+    def __rmul__(self, other):
+        return self.__mul__(other)
+
+    def __neg__(self):
+
+        objects = []
+        for i in range(len(self.objects)):
+            new_object = -self.objects[list(self.objects.keys())[i]]
+            objects.append(new_object)
+            
+        return AutoDiffVector(objects)
+
+    def __truediv__(self, other):
+
+        objects = []
+        for i in range(len(self.objects)):
+            new_object = (self.objects[list(self.objects.keys())[i]])/other
+            objects.append(new_object)
+            
+        return AutoDiffVector(objects)
+
+    def __rtruediv__(self, other):
+        return self.__truediv__(other)
+
+    def __pow__(self, other):
+
+        objects = []
+        for i in range(len(self.objects)):
+            new_object = (self.objects[list(self.objects.keys())[i]]) ** other
+            objects.append(new_object)
+            
+        return AutoDiffVector(objects)    
+
 
 def vectorize(var, val, der=1.0):
     """Function takes in an array of variable names, values, and derivatives and creates an AutoDiffVector object"""
