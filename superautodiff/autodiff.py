@@ -46,7 +46,7 @@ class AutoDiff():
             total = Counter()
             total.update(self.der)
             total.update(other.der)
-            var = self.var | other.var
+            var = self.var + " + " + other.var
             return AutoDiff(var, self.val + other.val, total)
         except AttributeError:
             return AutoDiff(self.var, self.val + other, self.der)
@@ -59,7 +59,7 @@ class AutoDiff():
             total = Counter()
             total.update(self.der)
             total.update((-other).der)
-            var = self.var | other.var
+            var = self.var + " - " + other.var
             return AutoDiff(var, self.val - other.val, total)
         except AttributeError:
             return AutoDiff(self.var, self.val - other, self.der)
@@ -74,7 +74,7 @@ class AutoDiff():
             der2 = {k: self.val * v for k, v in other.der.items()}
             total.update(der1)
             total.update(der2)
-            var = self.var | other.var
+            var = self.var + " * " + other.var
             return AutoDiff(var, self.val * other.val, total)
         except AttributeError:
             der1 = {k: other * v for k, v in self.der.items()}
