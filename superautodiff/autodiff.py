@@ -110,8 +110,8 @@ class AutoDiff():
             return AutoDiff(self.var, self.val ** power, der)
         except AttributeError:
             return AutoDiff(self.var, self.val ** power, self.der)
-import superautodiff as sad
-import numpy as np
+
+
 
 class AutoDiffVector():
     def __init__(self, objects):
@@ -121,10 +121,16 @@ class AutoDiffVector():
             raise ValueError("AutoDiffVector requires at least one AutoDiff object as input")
         
         self.objects = {}
+        self.variables = []
         
         # Create dictionary of variables and the AutoDiff objects
         for i in range(len(objects)):
             self.objects[objects[i].var] = objects[i]
+            self.variables.append(objects[i].var)
+            
+        if len(self.variables) != len(set(self.variables)):
+            raise ValueError("Variable names cannot be the same")
+        
         
     def __add__(self, other):
         
@@ -142,7 +148,6 @@ class AutoDiffVector():
 
 def vectorize(var, val, der=1.0):
     """Function takes in an array of variable names, values, and derivatives and creates an AutoDiffVector object"""
-    
 
     # Ensure that input vectors are list types
     if type(var) != list or type(val) != list:
@@ -163,6 +168,10 @@ def vectorize(var, val, der=1.0):
     # If der is unspecified, create a vector of 1.0 values with length equal to input array
     if der == 1.0:
         der = [1.0] * len(var)
+        
+    # Ensure that the variable names ar enot repeated
+    if len(var) != len(set(var)):
+        raise ValueError("Variable names cannot be the same")
 
     # If everything checks out, create AutoDiff objects and to convert into an AutoDiffVector object
     objects = []
