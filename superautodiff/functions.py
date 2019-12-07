@@ -14,11 +14,11 @@ def sin(x):
 def sinV(x):
     try:
         objects = []
-        for i in range(len(self.objects)):
-            new_object = sin(self.objects[list(self.objects.keys())[i]])
+        for i in range(len(x.objects)):
+            new_object = sin(x.objects[list(x.objects.keys())[i]])
             objects.append(new_object)
             
-        return AutoDiffVector(objects)
+        return sad.autodiff.AutoDiffVector(objects)
     except AttributeError:
         print("Warning: For AutoDiff objects, please use the corresponding mathematical function: sin(AD) instead of sinV(AD)")
         return np.sin(x)
@@ -35,11 +35,11 @@ def cos(x):
 def cosV(x):
     try:
         objects = []
-        for i in range(len(self.objects)):
-            new_object = cos(self.objects[list(self.objects.keys())[i]])
+        for i in range(len(x.objects)):
+            new_object = cos(x.objects[list(x.objects.keys())[i]])
             objects.append(new_object)
             
-        return AutoDiffVector(objects)
+        return sad.autodiff.AutoDiffVector(objects)
     except AttributeError:
         print("Warning: For AutoDiff objects, please use the corresponding mathematical function: cos(AD) instead of cosV(AD)")
         return np.cos(x)
@@ -56,11 +56,11 @@ def tan(x):
 def tanV(x):
     try:
         objects = []
-        for i in range(len(self.objects)):
-            new_object = tan(self.objects[list(self.objects.keys())[i]])
+        for i in range(len(x.objects)):
+            new_object = tan(x.objects[list(x.objects.keys())[i]])
             objects.append(new_object)
             
-        return AutoDiffVector(objects)
+        return sad.autodiff.AutoDiffVector(objects)
     except AttributeError:
         print("Warning: For AutoDiff objects, please use the corresponding mathematical function: tan(AD) instead of tanV(AD)")
         return np.tan(x)
@@ -78,11 +78,11 @@ def arcsin(x):
 def arcsinV(x):
     try:
         objects = []
-        for i in range(len(self.objects)):
-            new_object = arcsin(self.objects[list(self.objects.keys())[i]])
+        for i in range(len(x.objects)):
+            new_object = arcsin(x.objects[list(x.objects.keys())[i]])
             objects.append(new_object)
             
-        return AutoDiffVector(objects)
+        return sad.autodiff.AutoDiffVector(objects)
     except AttributeError:
         print("Warning: For AutoDiff objects, please use the corresponding mathematical function: arcsin(AD) instead of arcsinV(AD)")
         return np.arcsin(x)
@@ -100,11 +100,11 @@ def arccos(x):
 def arccosV(x):
     try:
         objects = []
-        for i in range(len(self.objects)):
-            new_object = arccos(self.objects[list(self.objects.keys())[i]])
+        for i in range(len(x.objects)):
+            new_object = arccos(x.objects[list(x.objects.keys())[i]])
             objects.append(new_object)
             
-        return AutoDiffVector(objects)
+        return sad.autodiff.AutoDiffVector(objects)
     except AttributeError:
         print("Warning: For AutoDiff objects, please use the corresponding mathematical function: arccos(AD) instead of arccosV(AD)")
         return np.arccos(x)
@@ -122,11 +122,11 @@ def arctan(x):
 def arctanV(x):
     try:
         objects = []
-        for i in range(len(self.objects)):
-            new_object = arctan(self.objects[list(self.objects.keys())[i]])
+        for i in range(len(x.objects)):
+            new_object = arctan(x.objects[list(x.objects.keys())[i]])
             objects.append(new_object)
             
-        return AutoDiffVector(objects)
+        return sad.autodiff.AutoDiffVector(objects)
     except AttributeError:
         print("Warning: For AutoDiff objects, please use the corresponding mathematical function: arctan(AD) instead of arctanV(AD)")
         return np.arctan(x)
@@ -144,11 +144,11 @@ def exp(x):
 def expV(x):
     try:
         objects = []
-        for i in range(len(self.objects)):
-            new_object = exp(self.objects[list(self.objects.keys())[i]])
+        for i in range(len(x.objects)):
+            new_object = exp(x.objects[list(x.objects.keys())[i]])
             objects.append(new_object)
             
-        return AutoDiffVector(objects)
+        return sad.autodiff.AutoDiffVector(objects)
     except AttributeError:
         print("Warning: For AutoDiff objects, please use the corresponding mathematical function: exp(AD) instead of expV(AD)")
         return np.exp(x)
@@ -167,11 +167,11 @@ def log(x, base=math.e):
 def logV(x):
     try:
         objects = []
-        for i in range(len(self.objects)):
-            new_object = log(self.objects[list(self.objects.keys())[i]])
+        for i in range(len(x.objects)):
+            new_object = log(x.objects[list(x.objects.keys())[i]])
             objects.append(new_object)
             
-        return AutoDiffVector(objects)
+        return sad.autodiff.AutoDiffVector(objects)
     except AttributeError:
         print("Warning: For AutoDiff objects, please use the corresponding mathematical function: log(AD) instead of logV(AD)")
         return np.log(x)
@@ -191,11 +191,11 @@ def sinh(x):
 def sinhV(x):
     try:
         objects = []
-        for i in range(len(self.objects)):
-            new_object = sinh(self.objects[list(self.objects.keys())[i]])
+        for i in range(len(x.objects)):
+            new_object = sinh(x.objects[list(x.objects.keys())[i]])
             objects.append(new_object)
             
-        return AutoDiffVector(objects)
+        return sad.autodiff.AutoDiffVector(objects)
     except AttributeError:
         print("Warning: For AutoDiff objects, please use the corresponding mathematical function: sinh(AD) instead of sinhV(AD)")
         return np.sinh(x)
@@ -215,11 +215,11 @@ def cosh(x):
 def coshV(x):
     try:
         objects = []
-        for i in range(len(self.objects)):
-            new_object = cosh(self.objects[list(self.objects.keys())[i]])
+        for i in range(len(x.objects)):
+            new_object = cosh(x.objects[list(x.objects.keys())[i]])
             objects.append(new_object)
             
-        return AutoDiffVector(objects)
+        return sad.autodiff.AutoDiffVector(objects)
     except AttributeError:
         print("Warning: For AutoDiff objects, please use the corresponding mathematical function: cosh(AD) instead of coshV(AD)")
         return np.cosh(x)
@@ -239,11 +239,11 @@ def tanh(x):
 def tanhV(x):
     try:
         objects = []
-        for i in range(len(self.objects)):
-            new_object = tanh(self.objects[list(self.objects.keys())[i]])
+        for i in range(len(x.objects)):
+            new_object = tanh(x.objects[list(x.objects.keys())[i]])
             objects.append(new_object)
             
-        return AutoDiffVector(objects)
+        return sad.autodiff.AutoDiffVector(objects)
     except AttributeError:
         print("Warning: For AutoDiff objects, please use the corresponding mathematical function: tanh(AD) instead of tanhV(AD)")
         return np.tanh(x)
