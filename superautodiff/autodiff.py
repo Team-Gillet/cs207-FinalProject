@@ -111,6 +111,8 @@ class AutoDiff():
         except AttributeError:
             return AutoDiff(self.var, self.val ** power, self.der)
 
+    def __rpow__(self, other):
+        return self.__pow__(other)
 
 
 class AutoDiffVector():
@@ -198,8 +200,10 @@ class AutoDiffVector():
             new_object = (self.objects[list(self.objects.keys())[i]]) ** other
             objects.append(new_object)
             
-        return AutoDiffVector(objects)    
+        return AutoDiffVector(objects)
 
+    def __rpow__(self, other):
+        return self.__pow__(other)
 
 def vectorize(var, val, der=1.0):
     """Function takes in an array of variable names, values, and derivatives and creates an AutoDiffVector object"""
