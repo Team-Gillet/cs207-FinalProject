@@ -99,6 +99,7 @@ class AutoDiff():
         """Returns the negation of an AutoDiff object"""
 
         neg = {k: -1 * v for k, v in self.der.items()}
+        self.var = "-(" + self.var + ")"
         return AutoDiff(self.var, -self.val, neg)
 
     def reciprocal(self):
@@ -106,12 +107,13 @@ class AutoDiff():
 
         value = -1 / (self.val * self.val)
         der = {k: value * v for k, v in self.der.items()}
+        self.var = "(" + self.var + ")**(-1)"
         return AutoDiff(self.var, 1 / self.val, der)
 
     def __truediv__(self,other):
         """Performs division of an AutoDiff object with scalars and other AutoDiff objects"""
         try:
-            return self*other.reciprocal()
+            return self * (other.reciprocal())
         except AttributeError:
             der = {k:v/other for k, v in self.der.items()}
             return AutoDiff(self.var,self.val/other,der)
@@ -125,12 +127,14 @@ class AutoDiff():
         """Performs exponentiation of an AutoDiff object with scalars values e.g x**3 """
         value = power * (self.val) ** (power - 1)
         der = {k: value * v for k, v in self.der.items()}
+        self.var = self.var + " ** " + power
         return AutoDiff(self.var, self.val ** power, der)
 
     def __rpow__(self,power):
         """Performs exponentiation of an AutoDiff object with scalars values e.g. 3**x"""
         value =  power**self.val
         der ={k: value*v*np.log(power) for k, v in self.der.items()}
+        self.var = power + " ** " + self.var
         return AutoDiff(self.var, value, der)
 
     def __eq__(self, other):
@@ -157,10 +161,6 @@ class AutoDiff():
             return self.val <= other.val
         except:
             return self.val <= other
-            
-
-    def __rpow__(self, other):
-        return self.__pow__(other)
 
     def __ge__(self, other):
         """Assesses whether an AutoDiff object value is greater than or equal to that of another AutoDiff object/given value"""
