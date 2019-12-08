@@ -110,8 +110,9 @@ class AutoDiff():
                 var = self.var + " * " + str(round_3sf(other))
 
             der1 = {k: other * v for k, v in self.der.items()}
+            der1 = Counter(der1)
+            return AutoDiff(self.var, self.val * other, der1)
 
-            return AutoDiff(var, self.val * other, der1)
 
     def __rmul__(self, other):
         """Performs multiplication of an AutoDiff object with scalars and other AutoDiff objects"""
@@ -122,6 +123,7 @@ class AutoDiff():
         """Returns the negation of an AutoDiff object"""
 
         neg = {k: -1 * v for k, v in self.der.items()}
+        neg = Counter(neg)
         self.var = "-(" + self.var + ")"
         return AutoDiff(self.var, -self.val, neg)
 
@@ -163,6 +165,16 @@ class AutoDiff():
     def __eq__(self, other):
         """Assesses the equality of two AutoDiff objects"""
         try:
+# <<<<<<< HEAD
+#             value = power * (self.val) ** (power - 1)
+#             der = {k: value * v for k, v in self.der.items()}
+#             der = Counter(der)
+#             return AutoDiff(self.var, self.val ** power, der)
+#         except AttributeError:
+#             self.der = counter(self.der)
+#             return AutoDiff(self.var, self.val ** power, self.der)
+
+# =======
             return self.val == other.val and self.der == other.der
         except:
             return False
@@ -198,7 +210,6 @@ class AutoDiff():
             return self.val > other.val
         except:
             return self.val > other
-
 
 class AutoDiffVector():
     def __init__(self, objects):
