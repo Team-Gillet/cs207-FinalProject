@@ -76,8 +76,11 @@ class AutoDiff():
             total.update(der2)
             var = self.var | other.var
             return AutoDiff(var, self.val * other.val, total)
+
         except AttributeError:
             der1 = {k: other * v for k, v in self.der.items()}
+            der1 = Counter(der1)
+
             return AutoDiff(self.var, self.val * other, der1)
 
     def __rmul__(self, other):
@@ -85,6 +88,7 @@ class AutoDiff():
 
     def __neg__(self):
         neg = {k: -1 * v for k, v in self.der.items()}
+        neg = Counter(neg)
         return AutoDiff(self.var, -self.val, neg)
 
     def reciprocal(self):
@@ -107,12 +111,11 @@ class AutoDiff():
         try:
             value = power * (self.val) ** (power - 1)
             der = {k: value * v for k, v in self.der.items()}
+            der = Counter(der)
             return AutoDiff(self.var, self.val ** power, der)
         except AttributeError:
+            self.der = counter(self.der)
             return AutoDiff(self.var, self.val ** power, self.der)
-
-    def __rpow__(self, other):
-        return self.__pow__(other)
 
 
 class AutoDiffVector():
