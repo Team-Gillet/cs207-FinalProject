@@ -1,4 +1,5 @@
 from collections import Counter
+import math
 
 class AutoDiff():
     """Creates an object for autodifferentiation
@@ -40,32 +41,47 @@ class AutoDiff():
 
     def __add__(self, other):
         """Performs addition on two AutoDiff objects"""
-
         try:  # ask forgiveness
             total = Counter()
             total.update(self.der)
             total.update(other.der)
-            var = self.var + " + " + other.var
+
+            if type(other).__name__ is 'AutoDiff':
+                var = self.var + " + " + other.var
+        
             return AutoDiff(var, self.val + other.val, total)
+
         except AttributeError:
-            return AutoDiff(self.var, self.val + other, self.der)
+
+            if type(other).__name__ is not 'AutoDiff':
+                var = self.var + " + " + str(round_3sf(other))
+
+            return AutoDiff(var, self.val + other, self.der)
 
     def __radd__(self, other):
         """Performs addition on two AutoDiff objects"""
-
         return self.__add__(other)
 
     def __sub__(self, other):
         """Performs subtraction on two AutoDiff objects"""
-
         try:
             total = Counter()
             total.update(self.der)
             total.update((-other).der)
-            var = self.var + " - " + other.var
+            
+            if type(other).__name__ is 'AutoDiff':
+                var = self.var + " - " + other.var
+            else:
+                var = self.var + " - " + str(round_3sf(other))
+                
             return AutoDiff(var, self.val - other.val, total)
+
         except AttributeError:
-            return AutoDiff(self.var, self.val - other, self.der)
+
+            if type(other).__name__ is not 'AutoDiff':
+                var = self.var + " - " + str(round_3sf(other))
+
+            return AutoDiff(var, self.val - other, self.der)
 
     def __rsub__(self, other):
         """Performs subtraction on two AutoDiff objects"""
@@ -74,18 +90,28 @@ class AutoDiff():
 
     def __mul__(self, other):
         """Performs multiplication of an AutoDiff object with scalars and other AutoDiff objects"""
-
         try:
             total = Counter()
             der1 = {k: other.val * v for k, v in self.der.items()}
             der2 = {k: self.val * v for k, v in other.der.items()}
             total.update(der1)
             total.update(der2)
-            var = self.var + " * " + other.var
+
+            if type(other).__name__ is 'AutoDiff':
+                var = self.var + " * " + other.var
+            else:
+                var = self.var + " * " + str(round_3sf(other))
+
             return AutoDiff(var, self.val * other.val, total)
+
         except AttributeError:
+
+            if type(other).__name__ is not 'AutoDiff':
+                var = self.var + " * " + str(round_3sf(other))
+
             der1 = {k: other * v for k, v in self.der.items()}
-            return AutoDiff(self.var, self.val * other, der1)
+
+            return AutoDiff(var, self.val * other, der1)
 
     def __rmul__(self, other):
         """Performs multiplication of an AutoDiff object with scalars and other AutoDiff objects"""
@@ -124,14 +150,14 @@ class AutoDiff():
         """Performs exponentiation of an AutoDiff object with scalars values e.g x**3 """
         value = power * (self.val) ** (power - 1)
         der = {k: value * v for k, v in self.der.items()}
-        self.var = self.var + " ** " + power
+        self.var = self.var + " ** " + str(round_3sf(other))
         return AutoDiff(self.var, self.val ** power, der)
 
     def __rpow__(self,power):
         """Performs exponentiation of an AutoDiff object with scalars values e.g. 3**x"""
         value =  power**self.val
         der ={k: value*v*np.log(power) for k, v in self.der.items()}
-        self.var = power + " ** " + self.var
+        self.var = str(round_3sf(power)) + " ** " + self.var
         return AutoDiff(self.var, value, der)
 
     def __eq__(self, other):
@@ -264,6 +290,8 @@ class AutoDiffVector():
     def __rpow__(self, other):
         return self.__pow__(other)
 
+
+
 def vectorize(var, val, der=1.0):
     """Function takes in an array of variable names, values, and derivatives and creates an AutoDiffVector object"""
 
@@ -298,3 +326,8 @@ def vectorize(var, val, der=1.0):
         objects.append(AutoDiff(var[i], val[i], der[i]))
     
     return AutoDiffVector(objects)
+
+
+# Helper function required for variable naming
+def round_3sf(x, sig=3):
+    return round(x, sig-int(math.floor(math.log10(abs(x))))-1)
