@@ -5,7 +5,7 @@ index = 0
 forward_pass = pd.DataFrame(columns=['Node', 'd1', 'd1value', 'd2', 'd2value'])
 
 
-class AutoDiffReverseReverse():
+class AutoDiffReverse():
     """Creates an object for AutoDiffReverseerentiation
 
     ATTRIBUTES
@@ -50,8 +50,6 @@ class AutoDiffReverseReverse():
                                    columns=['Node', 'd1', 'd1value', 'd2', 'd2value'])
                 forward_pass = forward_pass.append(row)
         else:
-            print(der)
-            print(var)
             self.der = {var: 1}
             row = pd.DataFrame([[var, var, 1, '-', '-']], columns=['Node', 'd1', 'd1value', 'd2', 'd2value'])
             forward_pass = forward_pass.append(row)
@@ -137,7 +135,6 @@ def reverse_path(df,vars):
   ### start from the second last node to first
   for l in range(-2,-(df.shape[0]+1),-1):
     n = df.iloc[l]["Node"]
-    print(n)
     der = 0
   ###  scan all the rows  
     for row in range(le,df.shape[0]):
