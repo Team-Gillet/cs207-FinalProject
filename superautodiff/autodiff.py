@@ -21,21 +21,18 @@ class AutoDiff():
     """
 
     def __init__(self, var, val, der=1.0):
+
         #add exception for using same variable name?
         if type(var) == int or type(var) == float:
-            raise ValueError("Input variable should be a string or a set or string")
+            raise ValueError("Input variable name should be a string")
         elif type(var) == str:
             self.var = var
-        # else:
-        #     self.var = var
+
         if type(val)==list or type(val)==str:
             raise ValueError("Input value should be integer or float")
         else:
             self.val = float(val)
-        #if type(val)==float or type(val)==int:
-        #    self.val = float(val)
-        #else:
-        #    raise ValueError("Input value should be integer or float")
+        
         if type(der) != float:
             self.der = der
         else:
