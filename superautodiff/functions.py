@@ -4,6 +4,9 @@ import superautodiff as sad
 
 def sin(x):
 
+    if (type(x).__name__) is 'AutoDiffVector':
+        return _sinV(x)
+
     var = "sin(" + x.var + ")"
 
     try:
@@ -11,10 +14,10 @@ def sin(x):
         der = {k: np.cos(x.val) * v for k, v in x.der.items()}
         return sad.AutoDiff(var, val, der)
     except AttributeError:
-        print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: sinV(ADV) instead of sin(ADV)")
+        # print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: sinV(ADV) instead of sin(ADV)")
         return np.sin(x)
 
-def sinV(x):
+def _sinV(x):
     try:
         objects = []
         for i in range(len(x.objects)):
@@ -28,6 +31,9 @@ def sinV(x):
 
 def cos(x):
 
+    if (type(x).__name__) is 'AutoDiffVector':
+        return _cosV(x)
+    
     var = "cos(" + x.var + ")"
 
     try:
@@ -35,10 +41,10 @@ def cos(x):
         der = {k: -np.sin(x.val) * v for k, v in x.der.items()}
         return sad.AutoDiff(var, val, der)
     except AttributeError:
-        print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: cosV(ADV) instead of cos(ADV)")
+        # print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: cosV(ADV) instead of cos(ADV)")
         return np.cos(x)
 
-def cosV(x):
+def _cosV(x):
     try:
         objects = []
         for i in range(len(x.objects)):
@@ -52,6 +58,9 @@ def cosV(x):
 
 def tan(x):
 
+    if (type(x).__name__) is 'AutoDiffVector':
+        return _tanV(x)
+
     var = "tan(" + x.var + ")"
 
     try:
@@ -59,10 +68,10 @@ def tan(x):
         der = {k: (1 / (np.cos(x.val) ** 2)) * v for k, v in x.der.items()}
         return sad.AutoDiff(var, val, der)
     except AttributeError:
-        print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: tanV(ADV) instead of tan(ADV)")
+        # print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: tanV(ADV) instead of tan(ADV)")
         return np.tan(x)
 
-def tanV(x):
+def _tanV(x):
     try:
         objects = []
         for i in range(len(x.objects)):
@@ -76,16 +85,21 @@ def tanV(x):
 
 
 def arcsin(x):
+
+    if (type(x).__name__) is 'AutoDiffVector':
+        return _arcsinV(x)
+
     var = "arcsin(" + x.var + ")"
+
     try:
         val = np.arcsin(x.val)
         der = {k: (1 / np.sqrt(1 - x.val ** 2)) * v for k, v in x.der.items()}
         return sad.AutoDiff(var, val, der)
     except AttributeError:
-        print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: arcsinV(ADV) instead of arcsin(ADV)")
+        # print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: arcsinV(ADV) instead of arcsin(ADV)")
         return np.arcsin(x)
 
-def arcsinV(x):
+def _arcsinV(x):
     try:
         objects = []
         for i in range(len(x.objects)):
@@ -98,6 +112,10 @@ def arcsinV(x):
         return np.arcsin(x)
 
 def arccos(x):
+
+    if (type(x).__name__) is 'AutoDiffVector':
+        return _arccosV(x)
+
     var = "arccos(" + x.var + ")"
 
     try:
@@ -105,11 +123,11 @@ def arccos(x):
         der = {k: (1 / -np.sqrt(1 - x.val ** 2)) * v for k, v in x.der.items()}
         return sad.AutoDiff(var, val, der)
     except AttributeError:
-        print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: arccosV(ADV) instead of arccos(ADV)")
+        # print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: arccosV(ADV) instead of arccos(ADV)")
         return np.arccos(x)
 
 
-def arccosV(x):
+def _arccosV(x):
     try:
         objects = []
         for i in range(len(x.objects)):
@@ -123,16 +141,21 @@ def arccosV(x):
 
 
 def arctan(x):
+    
+    if (type(x).__name__) is 'AutoDiffVector':
+        return _arctanV(x)
+
     var = "arctan(" + x.var + ")"
+
     try:
         val = np.arctan(x.val)
         der = {k: (1 / (1 + x.val * x.val)) * v for k, v in x.der.items()}
         return sad.AutoDiff(var, val, der)
     except AttributeError:
-        print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: arctanV(ADV) instead of arctan(ADV)")
+        # print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: arctanV(ADV) instead of arctan(ADV)")
         return np.arctan(x)
 
-def arctanV(x):
+def _arctanV(x):
 
     try:
         objects = []
@@ -147,6 +170,10 @@ def arctanV(x):
 
 
 def exp(x):
+    
+    if (type(x).__name__) is 'AutoDiffVector':
+        return _expV(x)
+    
     var = "exp(" + x.var + ")"
 
     try:
@@ -154,10 +181,10 @@ def exp(x):
         der = {k: val * v for k, v in x.der.items()}
         return sad.AutoDiff(var, val, der)
     except AttributeError:
-        print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: expV(ADV) instead of exp(ADV)")
+        # print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: expV(ADV) instead of exp(ADV)")
         return np.exp(x)
 
-def expV(x):
+def _expV(x):
     try:
         objects = []
         for i in range(len(x.objects)):
@@ -171,6 +198,9 @@ def expV(x):
 
 def log(x, base=math.e):
 
+    if (type(x).__name__) is 'AutoDiffVector':
+        return _logV(x)
+    
     # Create variable name
     if base == math.e:
         var = "ln(" + x.var + ")"
@@ -184,10 +214,10 @@ def log(x, base=math.e):
     except ValueError:
         print("Invalid value for mathematical function")
     except AttributeError:
-        print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: logV(ADV) instead of log(ADV)")
+        # print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: logV(ADV) instead of log(ADV)")
         return math.log(x, base)
 
-def logV(x):
+def _logV(x):
     try:
         objects = []
         for i in range(len(x.objects)):
@@ -200,7 +230,12 @@ def logV(x):
         return np.log(x)
 
 def sinh(x):
+
+    if (type(x).__name__) is 'AutoDiffVector':
+        return _sinhV(x)
+
     var = "sinh(" + x.var + ")"
+
     try:
         val = math.sinh(x.val)
         der = {k: math.cosh(x.val) * v for k, v in x.der.items()}
@@ -208,11 +243,11 @@ def sinh(x):
     except ValueError:
         print("Invalid value for mathematical function")
     except AttributeError:
-        print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: sinhV(ADV) instead of sinh(ADV)")
+        # print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: sinhV(ADV) instead of sinh(ADV)")
         return math.sinh(x)
 
 
-def sinhV(x):
+def _sinhV(x):
     try:
         objects = []
         for i in range(len(x.objects)):
@@ -226,7 +261,12 @@ def sinhV(x):
 
 
 def cosh(x):
+    
+    if (type(x).__name__) is 'AutoDiffVector':
+        return _coshV(x)
+
     var = "cosh(" + x.var + ")"
+
     try:
         val = math.cosh(x.val)
         der = {k: math.sinh(x.val) * v for k, v in x.der.items()}
@@ -237,7 +277,7 @@ def cosh(x):
         print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: coshV(ADV) instead of cosh(ADV)")
         return math.cosh(x)
 
-def coshV(x):
+def _coshV(x):
     try:
         objects = []
         for i in range(len(x.objects)):
@@ -246,12 +286,17 @@ def coshV(x):
             
         return sad.autodiff.AutoDiffVector(objects)
     except AttributeError:
-        print("Warning: For AutoDiff objects, please use the corresponding mathematical function: cosh(AD) instead of coshV(AD)")
+        # print("Warning: For AutoDiff objects, please use the corresponding mathematical function: cosh(AD) instead of coshV(AD)")
         return np.cosh(x)
 
 
 def tanh(x):
+
+    if (type(x).__name__) is 'AutoDiffVector':
+        return _tanhV(x)
+
     var = "tanh(" + x.var + ")"
+    
     try:
         val = math.tanh(x.val)
         der = {k: (1 / (cosh(x.val) ** 2)) * v for k, v in x.der.items()}
@@ -259,7 +304,7 @@ def tanh(x):
     except ValueError:
         print("Invalid value for mathematical function")
     except AttributeError:
-        print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: tanhV(ADV) instead of tanh(ADV)")
+        # print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: tanhV(ADV) instead of tanh(ADV)")
         return 1 / (cosh(x) ** 2)
     
 def sqrt(x):
@@ -271,7 +316,7 @@ def sqrt(x):
 def logistic(x):
   return 1/(1+exp(-x))
 
-def tanhV(x):
+def _tanhV(x):
     try:
         objects = []
         for i in range(len(x.objects)):
