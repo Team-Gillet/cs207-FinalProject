@@ -112,28 +112,18 @@ class AutoDiff():
         der = {k: value * v * np.log(power) for k, v in self.der.items()}
         return AutoDiff(value, None, der)
 
-    def reciprocal(self):
-        """Returns the reciprocal of an AutoDiff object"""
-        value = -1 / (self.val * self.val)
-        der = {k: value * v for k, v in self.der.items()}
-        return AutoDiff(1 / self.val, None, der)
-
     def __truediv__(self, other):
         """Performs division of an AutoDiff object with scalars and other AutoDiff objects"""
         try:
-            value = -1 / (self.val * self.val)
-            der = {k: value * v for k, v in self.der.items()}
-            total = {self.var: other.val, other.var: self.val}
-            return AutoDiff(self.val * other.val, None, total)
-            return AutoDiff(1 / self.val, None, der)
-            return self * other.reciprocal()
+            value = -1 / (other.val * other.val)
+            total = {self.var: 1 / other.val, other.var: value * self.val}
+            return AutoDiff(self.val / other.val, None, total)
         except AttributeError:
-            der = {k: v / other for k, v in self.der.items()}
-            print('truediv')
-            return AutoDiff(self.val / other, None, der)
+            total = {self.var: 1 / other}
+            return AutoDiff(self.val / other, None, total)
 
     def __rtruediv__(self, other):
         """Performs division of an AutoDiff object with scalars and other AutoDiff objects"""
-        # x._rtruediv_(other) <==> other / x
-        print('rtruediv')
-        return other * self.reciprocal()
+        value = -1 / (self.val * self.val)
+        total = {self.var: other * value}
+        return AutoDiff(other / self.val, None, total)
