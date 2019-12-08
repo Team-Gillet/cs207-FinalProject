@@ -156,8 +156,8 @@ class AutoDiff():
 
     def __rpow__(self,power):
         """Performs exponentiation of an AutoDiff object with scalars values e.g. 3**x"""
-        value =  power**self.val
-        der ={k: value*v*np.log(power) for k, v in self.der.items()}
+        value =  power ** self.val
+        der = {k: value * v * math.log(power) for k, v in self.der.items()}
         self.var = str(round_3sf(power)) + " ** " + self.var
         return AutoDiff(self.var, value, der)
 
@@ -222,6 +222,13 @@ class AutoDiffVector():
         
         # Create dictionary of variables and the AutoDiff objects
         for i in range(len(objects)):
+            if type(objects[i]).__name__ is not 'AutoDiff':
+                raise ValueError('Variable inputs need to be AutoDiff objects!')
+
+            # print(type(object[i]))
+
+
+
             self.objects[objects[i].var] = objects[i]
             self.variables.append(objects[i].var)
             
