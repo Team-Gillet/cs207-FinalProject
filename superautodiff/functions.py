@@ -3,10 +3,13 @@ import math
 import superautodiff as sad
 
 def sin(x):
+
+    var = "sin(" + x.var + ")"
+
     try:
         val = np.sin(x.val)
         der = {k: np.cos(x.val) * v for k, v in x.der.items()}
-        return sad.AutoDiff(x.var, val, der)
+        return sad.AutoDiff(var, val, der)
     except AttributeError:
         print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: sinV(ADV) instead of sin(ADV)")
         return np.sin(x)
@@ -24,10 +27,13 @@ def sinV(x):
         return np.sin(x)
 
 def cos(x):
+
+    var = "cos(" + x.var + ")"
+
     try:
         val = np.cos(x.val)
         der = {k: -np.sin(x.val) * v for k, v in x.der.items()}
-        return sad.AutoDiff(x.var, val, der)
+        return sad.AutoDiff(var, val, der)
     except AttributeError:
         print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: cosV(ADV) instead of cos(ADV)")
         return np.cos(x)
@@ -45,10 +51,13 @@ def cosV(x):
         return np.cos(x)
 
 def tan(x):
+
+    var = "tan(" + x.var + ")"
+
     try:
         val = np.tan(x.val)
         der = {k: (1 / (np.cos(x.val) ** 2)) * v for k, v in x.der.items()}
-        return sad.AutoDiff(x.var, val, der)
+        return sad.AutoDiff(var, val, der)
     except AttributeError:
         print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: tanV(ADV) instead of tan(ADV)")
         return np.tan(x)
@@ -67,10 +76,11 @@ def tanV(x):
 
 
 def arcsin(x):
+    var = "arcsin(" + x.var + ")"
     try:
         val = np.arcsin(x.val)
         der = {k: (1 / np.sqrt(1 - x.val ** 2)) * v for k, v in x.der.items()}
-        return sad.AutoDiff(x.var, val, der)
+        return sad.AutoDiff(var, val, der)
     except AttributeError:
         print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: arcsinV(ADV) instead of arcsin(ADV)")
         return np.arcsin(x)
@@ -88,10 +98,12 @@ def arcsinV(x):
         return np.arcsin(x)
 
 def arccos(x):
+    var = "arccos(" + x.var + ")"
+
     try:
         val = np.arccos(x.val)
         der = {k: (1 / -np.sqrt(1 - x.val ** 2)) * v for k, v in x.der.items()}
-        return sad.AutoDiff(x.var, val, der)
+        return sad.AutoDiff(var, val, der)
     except AttributeError:
         print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: arccosV(ADV) instead of arccos(ADV)")
         return np.arccos(x)
@@ -111,15 +123,17 @@ def arccosV(x):
 
 
 def arctan(x):
+    var = "arctan(" + x.var + ")"
     try:
         val = np.arctan(x.val)
         der = {k: (1 / (1 + x.val * x.val)) * v for k, v in x.der.items()}
-        return sad.AutoDiff(x.var, val, der)
+        return sad.AutoDiff(var, val, der)
     except AttributeError:
         print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: arctanV(ADV) instead of arctan(ADV)")
         return np.arctan(x)
 
 def arctanV(x):
+
     try:
         objects = []
         for i in range(len(x.objects)):
@@ -133,10 +147,12 @@ def arctanV(x):
 
 
 def exp(x):
+    var = "exp(" + x.var + ")"
+
     try:
         val = np.exp(x.val)
         der = {k: val * v for k, v in x.der.items()}
-        return sad.AutoDiff(x.var, val, der)
+        return sad.AutoDiff(var, val, der)
     except AttributeError:
         print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: expV(ADV) instead of exp(ADV)")
         return np.exp(x)
@@ -154,10 +170,17 @@ def expV(x):
         return np.exp(x)
 
 def log(x, base=math.e):
+
+    # Create variable name
+    if base == math.e:
+        var = "ln(" + x.var + ")"
+    else:
+        var = "log_{" + base + "}(" + x.var + ")"
+
     try:
         val = math.log(x.val, base)
         der = {k: (1 / (x.val * math.log(base))) * v for k, v in x.der.items()}
-        return sad.AutoDiff(x.var, val, der)
+        return sad.AutoDiff(var, val, der)
     except ValueError:
         print("Invalid value for mathematical function")
     except AttributeError:
@@ -177,10 +200,11 @@ def logV(x):
         return np.log(x)
 
 def sinh(x):
+    var = "sinh(" + x.var + ")"
     try:
         val = math.sinh(x.val)
         der = {k: math.cosh(x.val) * v for k, v in x.der.items()}
-        return sad.AutoDiff(x.var, val, der)
+        return sad.AutoDiff(var, val, der)
     except ValueError:
         print("Invalid value for mathematical function")
     except AttributeError:
@@ -202,10 +226,11 @@ def sinhV(x):
 
 
 def cosh(x):
+    var = "cosh(" + x.var + ")"
     try:
         val = math.cosh(x.val)
         der = {k: math.sinh(x.val) * v for k, v in x.der.items()}
-        return sad.AutoDiff(x.var, val, der)
+        return sad.AutoDiff(var, val, der)
     except ValueError:
         print("Invalid value for mathematical function")
     except AttributeError:
@@ -226,10 +251,11 @@ def coshV(x):
 
 
 def tanh(x):
+    var = "tanh(" + x.var + ")"
     try:
         val = math.tanh(x.val)
         der = {k: (1 / (cosh(x.val) ** 2)) * v for k, v in x.der.items()}
-        return sad.AutoDiff(x.var, val, der)
+        return sad.AutoDiff(var, val, der)
     except ValueError:
         print("Invalid value for mathematical function")
     except AttributeError:
