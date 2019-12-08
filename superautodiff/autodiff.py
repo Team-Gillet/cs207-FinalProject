@@ -121,10 +121,9 @@ class AutoDiff():
 
     def __neg__(self):
         """Returns the negation of an AutoDiff object"""
-
         neg = {k: -1 * v for k, v in self.der.items()}
         neg = Counter(neg)
-        self.var = "-(" + self.var + ")"
+        # self.var = "-(" + self.var + ")"
         return AutoDiff(self.var, -self.val, neg)
 
     def reciprocal(self):
@@ -152,7 +151,7 @@ class AutoDiff():
         """Performs exponentiation of an AutoDiff object with scalars values e.g x**3 """
         value = power * (self.val) ** (power - 1)
         der = {k: value * v for k, v in self.der.items()}
-        self.var = self.var + " ** " + str(round_3sf(other))
+        self.var = self.var + " ** " + str(round_3sf(power))
         return AutoDiff(self.var, self.val ** power, der)
 
     def __rpow__(self,power):
