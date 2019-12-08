@@ -48,7 +48,7 @@ class AutoDiff():
             total = Counter()
             total.update(self.der)
             total.update(other.der)
-            var = self.var | other.var
+            var = self.var + " + " + other.var
             return AutoDiff(var, self.val + other.val, total)
         except AttributeError:
             return AutoDiff(self.var, self.val + other, self.der)
@@ -65,7 +65,7 @@ class AutoDiff():
             total = Counter()
             total.update(self.der)
             total.update((-other).der)
-            var = self.var | other.var
+            var = self.var + " - " + other.var
             return AutoDiff(var, self.val - other.val, total)
         except AttributeError:
             return AutoDiff(self.var, self.val - other, self.der)
@@ -84,7 +84,7 @@ class AutoDiff():
             der2 = {k: self.val * v for k, v in other.der.items()}
             total.update(der1)
             total.update(der2)
-            var = self.var | other.var
+            var = self.var + " * " + other.var
             return AutoDiff(var, self.val * other.val, total)
         except AttributeError:
             der1 = {k: other * v for k, v in self.der.items()}
@@ -158,6 +158,9 @@ class AutoDiff():
         except:
             return self.val <= other
             
+
+    def __rpow__(self, other):
+        return self.__pow__(other)
 
     def __ge__(self, other):
         """Assesses whether an AutoDiff object value is greater than or equal to that of another AutoDiff object/given value"""
@@ -259,8 +262,10 @@ class AutoDiffVector():
             new_object = (self.objects[list(self.objects.keys())[i]]) ** other
             objects.append(new_object)
             
-        return AutoDiffVector(objects)    
+        return AutoDiffVector(objects)
 
+    def __rpow__(self, other):
+        return self.__pow__(other)
 
 def vectorize(var, val, der=1.0):
     """Function takes in an array of variable names, values, and derivatives and creates an AutoDiffVector object"""
