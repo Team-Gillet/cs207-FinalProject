@@ -205,7 +205,7 @@ def log(x, base=math.e):
     if base == math.e:
         var = "ln(" + x.var + ")"
     else:
-        var = "log_{" + base + "}(" + x.var + ")"
+        var = "log_{" + str(base) + "}(" + x.var + ")"
 
     try:
         val = math.log(x.val, base)
