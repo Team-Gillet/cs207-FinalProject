@@ -235,6 +235,15 @@ def tanh(x):
     except AttributeError:
         print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: tanhV(ADV) instead of tanh(ADV)")
         return 1 / (cosh(x) ** 2)
+    
+def sqrt(x):
+  try:
+    return x**0.5
+  except:
+    return np.sqrt(x)
+
+def logistic(x):
+  return 1/(1+exp(-x))
 
 def tanhV(x):
     try:
