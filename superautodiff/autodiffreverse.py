@@ -127,3 +127,27 @@ class AutoDiffReverseReverse():
         value = -1 / (self.val * self.val)
         total = {self.var: other * value}
         return AutoDiffReverse(other / self.val, None, total)
+    
+# Reverse Path  
+def reverse_path(df,vars):
+  le = len(vars)
+  df["currentvalue"] = df[['d1', 'd2']].apply(lambda x: ''.join(x), axis=1)
+  dic = {}
+  dic[df.iloc[-1]["Node"]] =1
+  ### start from the second last node to first
+  for l in range(-2,-(df.shape[0]+1),-1):
+    n = df.iloc[l]["Node"]
+    print(n)
+    der = 0
+  ###  scan all the rows  
+    for row in range(le,df.shape[0]):
+      if n in df.iloc[row]["currentvalue"]:
+        parent = df.iloc[row]["Node"]
+        if n == df.iloc[row]["d1"]:
+          der_n = df.iloc[row]["d1value"]
+        elif n == df.iloc[row]["d2"]:
+          der_n = df.iloc[row]["d2value"]
+        der = der + dic[parent]*der_n
+    dic[n] = der
+  dic_out = dict((k, dic[k]) for k in vars) 
+  return dic_out
