@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-index = 0
+forward_pass_index = 0
 forward_pass = pd.DataFrame(columns=['Node', 'd1', 'd1value', 'd2', 'd2value'])
 
 
@@ -28,9 +28,9 @@ class AutoDiffReverse():
     def __init__(self, val, var=None, der=1.0):
         global forward_pass
         if not var:
-            global index
-            var = 'y' + str(index + 1)
-            index += 1
+            global forward_pass_index
+            var = 'y' + str(forward_pass_index + 1)
+            forward_pass_index += 1
             self.var = var
         else:
             self.var = var
@@ -126,8 +126,8 @@ class AutoDiffReverse():
         total = {self.var: other * value}
         return AutoDiffReverse(other / self.val, None, total)
     
-# Reverse Path  
-def reverse_path(df,vars):
+# Reverse Pass  
+def reversepass(df,vars):
   le = len(vars)
   df["currentvalue"] = df[['d1', 'd2']].apply(lambda x: ''.join(x), axis=1)
   dic = {}
