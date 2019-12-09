@@ -389,6 +389,7 @@ def test_sin():
 	assert next(iter(f.der)) == 'sin(x)'
 	assert f.var == 'x' # TODO: change to dict
 	assert f.val == pytest.approx(0.0)
+	assert sad.sin(2) = pytest.approx(np.sin(2))
 
 # f(x) = cos(x); f(2*pi) = 1; f'(x) = -cos(x); f'(2pi) = 0
 def test_cos():
@@ -399,6 +400,7 @@ def test_cos():
 	assert next(iter(f.der)) == 'cos(x)'
 	assert f.var == 'x' # TODO: change to dict
 	assert f.val == pytest.approx(1.0)
+	assert sad.cos(2) = pytest.approx(np.cos(2))
 
 # f(x) = tan(x); f(2*pi) = 0; f'(x) = sec^2(x); f'(2pi) = 1
 def test_tan():
@@ -409,6 +411,7 @@ def test_tan():
 	assert next(iter(f.der)) == 'tan(x)'
 	assert f.var == 'x' # TODO: change to dict
 	assert f.val == pytest.approx(0.0)
+	assert sad.tan(2) = pytest.approx(np.tan(2))
 
 # f(x) = arcsin(x); f(0.5) = 0.5235...; f'(x) = (1-x^2)^(-1/2); f'(0.5) = 1.1547...
 def test_arcsin():
@@ -420,6 +423,7 @@ def test_arcsin():
 	assert next(iter(f.der)) == 'arcsin(x)'
 	assert f.var == 'x' # TODO: change to dict
 	assert f.val == pytest.approx(np.arcsin(0.5))
+	assert sad.arcsin(2) = pytest.approx(np.arcsin(2))
 
 
 # f(x) = arccos(x); f(0.5) = 1.0472...; f'(x) = -(1-x^2)^(-1/2); f'(0.5) = -1.1547...
@@ -432,6 +436,7 @@ def test_arccos():
 	assert next(iter(f.der)) == 'arccos(x)'
 	assert f.var == 'x' # TODO: change to dict
 	assert f.val == pytest.approx(np.arccos(0.5))
+	assert sad.arccos(2) = pytest.approx(np.arccos(2))
 
 
 # f(x) = arctan(x); f(0.5) = 0.4636...; f'(x) = (1+x^2)^(-1); f'(0.5) = 4/5
@@ -444,6 +449,7 @@ def test_arctan():
 	assert next(iter(f.der)) == 'arctan(x)'
 	assert f.var == 'x' # TODO: change to dict
 	assert f.val == pytest.approx(np.arctan(0.5))
+	assert sad.arctan(2) = pytest.approx(np.arctan(2))
 
 # f(x) = exp(x); f(2) = e^2; f'(x) = e^x; f'(2) = e^2
 def test_exp():
@@ -454,6 +460,7 @@ def test_exp():
 	assert next(iter(f.der)) == 'exp(x)'
 	assert f.var == 'x' # TODO: change to dict
 	assert f.val == pytest.approx(np.exp(2))
+	assert sad.exp(2) = pytest.approx(np.exp(2))
 
 # f(x) =ln(x); f(2) = ln(2); f'(x) = 1/x; f'(2) = 1/2
 def test_ln():
@@ -464,6 +471,7 @@ def test_ln():
 	assert next(iter(f.der)) == 'log(x)'
 	assert f.var == 'x' # TODO: change to dict
 	assert f.val == pytest.approx(math.log(2, math.e))
+	assert sad.log(2) = pytest.approx(math.log(2, math.e))
 
 # f(x) =log10(x); f(100) = 10; f'(x) = 1/(x*ln(10)); f'(2) = 1/2
 def test_log10():
@@ -474,6 +482,7 @@ def test_log10():
 	assert next(iter(f.der)) == 'log_10(x)'
 	assert f.var == 'x' # TODO: change to dict
 	assert f.val == pytest.approx(math.log(100, 10))
+	assert sad.log(2, 10) = pytest.approx(math.log(2, 10)
 
 # f(x) = sinh(x); f(0.5) = 0.5210...; f'(x) = cosh(x); f'(0.5) = 1.1276...
 def test_sinh():
@@ -484,6 +493,7 @@ def test_sinh():
 	assert next(iter(f.der)) == 'cosh(x)'
 	assert f.var == 'x' # TODO: change to dict
 	assert f.val == pytest.approx(np.sinh(0.5))
+	assert sad.sinh(2) = pytest.approx(np.sinh(2))
 
 # f(x) = cosh(x); f(0.5) = 1.1276...; f'(x) = sinh(x); f'(0.5) = 0.5210...
 def test_cosh():
@@ -494,6 +504,7 @@ def test_cosh():
 	assert next(iter(f.der)) == 'cosh(x)'
 	assert f.var == 'x' # TODO: change to dict
 	assert f.val == pytest.approx(np.cosh(0.5))
+	assert sad.cosh(2) = pytest.approx(np.cosh(2))
 
 # f(x) = tanh(x); f(0.5) = 0.4621...; f'(x) = sech^2(x)= 2/(cos(2x)+1); f'(0.5) = 0.7864...
 def test_tanh():
@@ -504,6 +515,7 @@ def test_tanh():
 	assert next(iter(f.der)) == 'tanh(x)'
 	assert f.var == 'x' # TODO: change to dict
 	assert f.val == pytest.approx(np.tanh(0.5))
+	assert sad.tanh(2) = pytest.approx(np.tanh(2))
 
 
 ### 8. Equalities and inequalities
