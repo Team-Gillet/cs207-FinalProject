@@ -205,7 +205,7 @@ def log(x, base=math.e):
     if base == math.e:
         var = "ln(" + x.var + ")"
     else:
-        var = "log_{" + str(base) + "}(" + x.var + ")"
+        var = "log_{" + base + "}(" + x.var + ")"
 
     try:
         val = math.log(x.val, base)
@@ -328,3 +328,6 @@ def _tanhV(x):
         print("Warning: For AutoDiff objects, please use the corresponding mathematical function: tanh(AD) instead of tanhV(AD)")
         return np.tanh(x)
 
+
+if __name__ == '__main__':
+    x1 = sad.AutoDiff('x',1)

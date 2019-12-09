@@ -286,6 +286,9 @@ def test_vector_sin():
     der = f3.der['x']
     val = f3.val
     do_vector_tests_no_other(vec1, vec2, der, val)
+    with pytest.raises(AttributeError):
+        x1 = sad.AutoDiff('x', 1)
+        sad._sinV(x1)
 
 def test_vector_cos():
     f1 = sad.AutoDiff('x', 2)
@@ -299,6 +302,9 @@ def test_vector_cos():
     der = f3.der['x']
     val = f3.val
     do_vector_tests_no_other(vec1, vec2, der, val)
+    #with pytest.raises(AttributeError):
+    x1 = sad.AutoDiff('x', 1)
+    assert sad._cosV(x1) == pytest.approx(sad.cos(x1))
 
 def test_vector_tan():
     f1 = sad.AutoDiff('x', 2)
@@ -312,6 +318,9 @@ def test_vector_tan():
     der = f3.der['x']
     val = f3.val
     do_vector_tests_no_other(vec1, vec2, der, val)
+    with pytest.raises(AttributeError):
+        x1 = sad.AutoDiff('x', 1)
+        sad._tanvV(x1)
 
 def test_vector_arcsin():
     f1 = sad.AutoDiff('x', 0.5)
@@ -324,6 +333,9 @@ def test_vector_arcsin():
     der = f3.der['x']
     val = f3.val
     do_vector_tests_no_other(vec1, vec2, der, val)
+    with pytest.raises(AttributeError):
+        x1 = sad.AutoDiff('x', 1)
+        sad._arcsinV(x1)
 
 def test_vector_arccos():
     f1 = sad.AutoDiff('x', 0.5)
@@ -336,6 +348,9 @@ def test_vector_arccos():
     der = f3.der['x']
     val = f3.val
     do_vector_tests_no_other(vec1, vec2, der, val)
+    with pytest.raises(AttributeError):
+        x1 = sad.AutoDiff('x', 1)
+        sad._arccosV(x1)
 
 def test_vector_arctan():
     f1 = sad.AutoDiff('x', 2)
@@ -348,6 +363,9 @@ def test_vector_arctan():
     der = f3.der['x']
     val = f3.val
     do_vector_tests_no_other(vec1, vec2, der, val)
+    with pytest.raises(AttributeError):
+        x1 = sad.AutoDiff('x', 1)
+        sad._arctanV(x1)
 
 def test_vector_exp():
     f1 = sad.AutoDiff('x', 2)
@@ -360,6 +378,9 @@ def test_vector_exp():
     der = f3.der['x']
     val = f3.val
     do_vector_tests_no_other(vec1, vec2, der, val)
+    with pytest.raises(AttributeError):
+        x1 = sad.AutoDiff('x', 1)
+        sad._expV(x1)
 
 def test_vector_ln():
     f1 = sad.AutoDiff('x', 2)
@@ -373,6 +394,9 @@ def test_vector_ln():
     der = f3.der['x']
     val = f3.val
     do_vector_tests_no_other(vec1, vec2, der, val)
+    with pytest.raises(AttributeError):
+        x1 = sad.AutoDiff('x', 1)
+        sad._logV(x1)
 
 def test_vector_log10():
     f1 = sad.AutoDiff('x', 2)
@@ -399,6 +423,9 @@ def test_vector_sinh():
     der = f3.der['x']
     val = f3.val
     do_vector_tests_no_other(vec1, vec2, der, val)
+    with pytest.raises(AttributeError):
+        x1 = sad.AutoDiff('x', 1)
+        sad._sinhV(x1)
 
 # f(x) = cosh(x); f(0.5) = 1.1276...; f'(x) = sinh(x); f'(0.5) = 0.5210...
 def test_vector_cosh():
@@ -412,6 +439,9 @@ def test_vector_cosh():
     der = f3.der['x']
     val = f3.val
     do_vector_tests_no_other(vec1, vec2, der, val)
+    with pytest.raises(AttributeError):
+        x1 = sad.AutoDiff('x', 1)
+        sad._coshV(x1)
 
 # f(x) = tanh(x); f(0.5) = 0.4621...; f'(x) = sech^2(x)= 2/(cos(2x)+1); f'(0.5) = 0.7864...
 def test_vector_tanh():
@@ -425,6 +455,9 @@ def test_vector_tanh():
     der = f3.der['x']
     val = f3.val
     do_vector_tests_no_other(vec1, vec2, der, val)
+    with pytest.raises(AttributeError):
+        x1 = sad.AutoDiff('x', 1)
+        sad._tanhV(x1)
 
 
 
