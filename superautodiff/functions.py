@@ -7,7 +7,8 @@ def sin(x):
     if (type(x).__name__) is 'AutoDiffVector':
         return _sinV(x)
 
-    var = "sin(" + x.var + ")"
+    # var = "sin(" + x.var + ")"
+    var= x.var
 
     try:
         val = np.sin(x.val)
@@ -34,7 +35,8 @@ def cos(x):
     if (type(x).__name__) is 'AutoDiffVector':
         return _cosV(x)
     
-    var = "cos(" + x.var + ")"
+    # var = "cos(" + x.var + ")"
+    var= x.var
 
     try:
         val = np.cos(x.val)
@@ -61,7 +63,8 @@ def tan(x):
     if (type(x).__name__) is 'AutoDiffVector':
         return _tanV(x)
 
-    var = "tan(" + x.var + ")"
+    # var = "tan(" + x.var + ")"
+    var= x.var
 
     try:
         val = np.tan(x.val)
@@ -89,7 +92,8 @@ def arcsin(x):
     if (type(x).__name__) is 'AutoDiffVector':
         return _arcsinV(x)
 
-    var = "arcsin(" + x.var + ")"
+    # var = "arcsin(" + x.var + ")"
+    var= x.var
 
     try:
         val = np.arcsin(x.val)
@@ -116,7 +120,8 @@ def arccos(x):
     if (type(x).__name__) is 'AutoDiffVector':
         return _arccosV(x)
 
-    var = "arccos(" + x.var + ")"
+    # var = "arccos(" + x.var + ")"
+    var= x.var
 
     try:
         val = np.arccos(x.val)
@@ -145,7 +150,8 @@ def arctan(x):
     if (type(x).__name__) is 'AutoDiffVector':
         return _arctanV(x)
 
-    var = "arctan(" + x.var + ")"
+    # var = "arctan(" + x.var + ")"
+    var= x.var
 
     try:
         val = np.arctan(x.val)
@@ -174,7 +180,8 @@ def exp(x):
     if (type(x).__name__) is 'AutoDiffVector':
         return _expV(x)
     
-    var = "exp(" + x.var + ")"
+    # var = "exp(" + x.var + ")"
+    var= x.var
 
     try:
         val = np.exp(x.val)
@@ -202,10 +209,12 @@ def log(x, base=math.e):
         return _logV(x)
     
     # Create variable name
-    if base == math.e:
-        var = "ln(" + x.var + ")"
-    else:
-        var = "log_{" + base + "}(" + x.var + ")"
+
+    # if base == math.e:
+    #     var = "ln(" + x.var + ")"
+    # else:
+    #     var = "log_{" + str(base) + "}(" + x.var + ")"
+    var= x.var
 
     try:
         val = math.log(x.val, base)
@@ -234,7 +243,8 @@ def sinh(x):
     if (type(x).__name__) is 'AutoDiffVector':
         return _sinhV(x)
 
-    var = "sinh(" + x.var + ")"
+    # var = "sinh(" + x.var + ")"
+    var= x.var
 
     try:
         val = math.sinh(x.val)
@@ -265,7 +275,8 @@ def cosh(x):
     if (type(x).__name__) is 'AutoDiffVector':
         return _coshV(x)
 
-    var = "cosh(" + x.var + ")"
+    # var = "cosh(" + x.var + ")"
+    var= x.var
 
     try:
         val = math.cosh(x.val)
@@ -295,7 +306,8 @@ def tanh(x):
     if (type(x).__name__) is 'AutoDiffVector':
         return _tanhV(x)
 
-    var = "tanh(" + x.var + ")"
+    # var = "tanh(" + x.var + ")"
+    var= x.var
     
     try:
         val = math.tanh(x.val)
