@@ -154,17 +154,11 @@ def test_add_autodiff_other():
 	assert f.val == 4.0
 
 #TO DO: update functionality for multiple variables
-def test_add_autodiff_other_conflicting_val():
-	with pytest.raises(TypeError):
-		x1 = sad.AutoDiff('x', 2)
-		x2 = sad.AutoDiff('x', 3)
-		f = x1 + x2
-
-# REMOVE? Don't need to check for all different types
-def test_add_autodiff_conflicting_val():
-	with pytest.raises(TypeError):
-		x1 = sad.AutoDiff('x', 2)
-		f = x1 + [1]
+# def test_add_autodiff_other_conflicting_val():
+# 	with pytest.raises(TypeError):
+# 		x1 = sad.AutoDiff('x', 2)
+# 		x2 = sad.AutoDiff('x', 3)
+# 		f = x1 + x2
 
 
 ### 2. Subtraction
@@ -272,11 +266,11 @@ def test_mul_autodiff_other():
 	assert f.val == pytest.approx(4.0)
 
 #TO DO: update functionality for multiple variables
-def test_mul_autodiff_other_conflicting_val():
-	with pytest.raises(TypeError):
-		x1 = sad.AutoDiff('x', 2.0)
-		x2 = sad.AutoDiff('x', 3.0)
-		f = x1 * x2
+# def test_mul_autodiff_other_conflicting_val():
+# 	with pytest.raises(TypeError):
+# 		x1 = sad.AutoDiff('x', 2.0)
+# 		x2 = sad.AutoDiff('x', 3.0)
+# 		f = x1 * x2
 
 ### 4. Additive inverse
 # f(x) = -x; f(2) = -2; f'(x) = -1; f'(2) = -1
@@ -334,11 +328,11 @@ def test_div_autodiff_other():
 	assert f.val == pytest.approx(1.0)
 
 #TO DO: update functionality for multiple variables
-def test_div_autodiff_other_conflicting_val():
-	with pytest.raises(TypeError):
-		x1 = sad.AutoDiff('x', 2.0)
-		x2 = sad.AutoDiff('x', 3.0)
-		f = x1 / x2
+# def test_div_autodiff_other_conflicting_val():
+# 	with pytest.raises(TypeError):
+# 		x1 = sad.AutoDiff('x', 2.0)
+# 		x2 = sad.AutoDiff('x', 3.0)
+# 		f = x1 / x2
 
 
 ### 6. Taking powers
@@ -408,7 +402,7 @@ def test_arcsin():
 	assert next(iter(f.der)) == 'x'
 	#assert f.var == 'x' # TODO: change to dict
 	assert f.val == pytest.approx(np.arcsin(0.5))
-	assert sad.arcsin(2) == pytest.approx(np.arcsin(2))
+	assert sad.arcsin(0.5) == pytest.approx(np.arcsin(0.5))
 
 
 # f(x) = arccos(x); f(0.5) = 1.0472...; f'(x) = -(1-x^2)^(-1/2); f'(0.5) = -1.1547...
@@ -421,7 +415,7 @@ def test_arccos():
 	assert next(iter(f.der)) == 'x'
 	#assert f.var == 'x' # TODO: change to dict
 	assert f.val == pytest.approx(np.arccos(0.5))
-	assert sad.arccos(2) == pytest.approx(np.arccos(2))
+	assert sad.arccos(0.5) == pytest.approx(np.arccos(0.5))
 
 
 # f(x) = arctan(x); f(0.5) = 0.4636...; f'(x) = (1+x^2)^(-1); f'(0.5) = 4/5
@@ -500,7 +494,7 @@ def test_tanh():
 	assert next(iter(f.der)) == 'x'
 	#assert f.var == 'x' # TODO: change to dict
 	assert f.val == pytest.approx(np.tanh(0.5))
-	assert sad.tanh(2) == pytest.approx(np.tanh(2))
+	assert sad.tanh(0.5) == pytest.approx(np.tanh(0.5))
 
 
 ### 8. Equalities and inequalities

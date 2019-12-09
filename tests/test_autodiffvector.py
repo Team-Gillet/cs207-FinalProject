@@ -133,23 +133,23 @@ def test_vector_sub():
     val_other = f4.val
     do_vector_tests(vec1, vec1_other, vec2, vec2_other, der, der_other, val, val_other)
 
-def test_vector_rsub():
-    f1 = sad.AutoDiff('x', 1)
-    f2 = sad.AutoDiff('y', 1)
-    other = sad.AutoDiff('z',2)
-    # do operations on objects
-    vec1 = 1 - sad.AutoDiffVector([f1,f2])
-    vec1_other = 1 - sad.AutoDiffVector([f1,f2])
-    vec2 = 1 - sad.vectorize(['x','y'], [1,1])
-    vec2_other = other - sad.vectorize(['x','y'], [1,1])
-    f3 = 1 - f1
-    f4 = other - f1
-    #
-    der = f3.der['x']
-    val = f3.val
-    der_other = f4.der['x']
-    val_other = f4.val
-    do_vector_tests(vec1, vec1_other, vec2, vec2_other, der, der_other, val, val_other)
+# def test_vector_rsub():
+#     f1 = sad.AutoDiff('x', 1)
+#     f2 = sad.AutoDiff('y', 1)
+#     other = sad.AutoDiff('z',2)
+#     # do operations on objects
+#     vec1 = 1 - sad.AutoDiffVector([f1,f2])
+#     vec1_other = 1 - sad.AutoDiffVector([f1,f2])
+#     vec2 = 1 - sad.vectorize(['x','y'], [1,1])
+#     vec2_other = other - sad.vectorize(['x','y'], [1,1])
+#     f3 = 1 - f1
+#     f4 = other - f1
+#     #
+#     der = f3.der['x']
+#     val = f3.val
+#     der_other = f4.der['x']
+#     val_other = f4.val
+#     do_vector_tests(vec1, vec1_other, vec2, vec2_other, der, der_other, val, val_other)
 
 
 ### 3. Multiplication
@@ -207,7 +207,7 @@ def test_vector_neg():
 
 
 ### 5. Division
-def test_vector_div_constant():
+def test_vector_div():
     f1 = sad.AutoDiff('x', 2)
     f2 = sad.AutoDiff('y', 2)
     other = sad.AutoDiff('z',2)
@@ -225,23 +225,23 @@ def test_vector_div_constant():
     val_other = f4.val
     do_vector_tests(vec1, vec1_other, vec2, vec2_other, der, der_other, val, val_other)
 
-def test_vector_rdiv_constant():
-    f1 = sad.AutoDiff('x', 2)
-    f2 = sad.AutoDiff('y', 2)
-    other = sad.AutoDiff('z',2)
-    # do operations on objects
-    vec1 = 3 / sad.AutoDiffVector([f1,f2])
-    vec1_other = other / sad.AutoDiffVector([f1,f2])
-    vec2 = 3 / sad.vectorize(['x','y'], [2,2])
-    vec2_other = other / sad.vectorize(['x','y'], [2,2])
-    f3 = 3 / f1
-    f4 = other / f1
-    #
-    der = f3.der['x']
-    val = f3.val
-    der_other = f4.der['x']
-    val_other = f4.val
-    do_vector_tests(vec1, vec1_other, vec2, vec2_other, der, der_other, val, val_other)
+# def test_vector_rdiv():
+#     f1 = sad.AutoDiff('x', 2)
+#     f2 = sad.AutoDiff('y', 2)
+#     other = sad.AutoDiff('z',2)
+#     # do operations on objects
+#     vec1 = 3 / sad.AutoDiffVector([f1,f2])
+#     vec1_other = other / sad.AutoDiffVector([f1,f2])
+#     vec2 = 3 / sad.vectorize(['x','y'], [2,2])
+#     vec2_other = other / sad.vectorize(['x','y'], [2,2])
+#     f3 = 3 / f1
+#     f4 = other / f1
+#     #
+#     der = f3.der['x']
+#     val = f3.val
+#     der_other = f4.der['x']
+#     val_other = f4.val
+#     do_vector_tests(vec1, vec1_other, vec2, vec2_other, der, der_other, val, val_other)
 
 
 ### 6. Taking powers
@@ -264,9 +264,9 @@ def test_vector_rpow():
     f2 = sad.AutoDiff('y', 2)
     other = sad.AutoDiff('z',2)
     # do operations on objects
-    vec1 = 3**sad.AutoDiffVector([f1,f2])
-    vec2 = 3**sad.vectorize(['x','y'], [2,2])
-    f3 = 3**f1
+    vec1 = 3.0**sad.AutoDiffVector([f1,f2])
+    vec2 = 3.0**sad.vectorize(['x','y'], [2,2])
+    f3 = 3.0**f1
     #
     der = f3.der['x']
     val = f3.val
@@ -302,9 +302,10 @@ def test_vector_cos():
     der = f3.der['x']
     val = f3.val
     do_vector_tests_no_other(vec1, vec2, der, val)
-    #with pytest.raises(AttributeError):
-    x1 = sad.AutoDiff('x', 1)
-    assert sad._cosV(x1) == pytest.approx(sad.cos(x1))
+    with pytest.raises(AttributeError):
+        x1 = sad.AutoDiff('x', 1)
+        sad._cosV(x1)
+    #assert sad._cosV(x1) == pytest.approx(sad.cos(x1))
 
 def test_vector_tan():
     f1 = sad.AutoDiff('x', 2)
@@ -320,7 +321,7 @@ def test_vector_tan():
     do_vector_tests_no_other(vec1, vec2, der, val)
     with pytest.raises(AttributeError):
         x1 = sad.AutoDiff('x', 1)
-        sad._tanvV(x1)
+        sad._tanV(x1)
 
 def test_vector_arcsin():
     f1 = sad.AutoDiff('x', 0.5)
