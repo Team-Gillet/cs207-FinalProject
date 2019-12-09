@@ -46,17 +46,17 @@ class AutoDiff():
             total.update(self.der)
             total.update(other.der)
 
-            if type(other).__name__ is 'AutoDiff':
-                var = self.var + " + " + other.var
+            # if type(other).__name__ is 'AutoDiff':
+            #     var = self.var + " + " + other.var
         
-            return AutoDiff(var, self.val + other.val, total)
+            return AutoDiff(self.var, self.val + other.val, total)
 
         except AttributeError:
 
-            if type(other).__name__ is not 'AutoDiff':
-                var = self.var + " + " + str(round_3sf(other))
+            # if type(other).__name__ is not 'AutoDiff':
+            #     var = self.var + " + " + str(round_3sf(other))
 
-            return AutoDiff(var, self.val + other, self.der)
+            return AutoDiff(self.var, self.val + other, self.der)
 
     def __radd__(self, other):
         """Performs addition on two AutoDiff objects"""
@@ -69,19 +69,19 @@ class AutoDiff():
             total.update(self.der)
             total.update((-other).der)
             
-            if type(other).__name__ is 'AutoDiff':
-                var = self.var + " - " + other.var
-            else:
-                var = self.var + " - " + str(round_3sf(other))
+            # if type(other).__name__ is 'AutoDiff':
+            #     var = self.var + " - " + other.var
+            # else:
+            #     var = self.var + " - " + str(round_3sf(other))
                 
-            return AutoDiff(var, self.val - other.val, total)
+            return AutoDiff(self.var, self.val - other.val, total)
 
         except AttributeError:
 
-            if type(other).__name__ is not 'AutoDiff':
-                var = self.var + " - " + str(round_3sf(other))
+            # if type(other).__name__ is not 'AutoDiff':
+            #     var = self.var + " - " + str(round_3sf(other))
 
-            return AutoDiff(var, self.val - other, self.der)
+            return AutoDiff(self.var, self.val - other, self.der)
 
     def __rsub__(self, other):
         """Performs subtraction on two AutoDiff objects"""
@@ -97,17 +97,17 @@ class AutoDiff():
             total.update(der1)
             total.update(der2)
 
-            if type(other).__name__ is 'AutoDiff':
-                var = self.var + " * " + other.var
-            else:
-                var = self.var + " * " + str(round_3sf(other))
+            # if type(other).__name__ is 'AutoDiff':
+            #     var = self.var + " * " + other.var
+            # else:
+            #     var = self.var + " * " + str(round_3sf(other))
 
-            return AutoDiff(var, self.val * other.val, total)
+            return AutoDiff(self.var, self.val * other.val, total)
 
         except AttributeError:
 
-            if type(other).__name__ is not 'AutoDiff':
-                var = self.var + " * " + str(round_3sf(other))
+            # if type(other).__name__ is not 'AutoDiff':
+            #     var = self.var + " * " + str(round_3sf(other))
 
             der1 = {k: other * v for k, v in self.der.items()}
             der1 = Counter(der1)
@@ -151,7 +151,7 @@ class AutoDiff():
         """Performs exponentiation of an AutoDiff object with scalars values e.g x**3 """
         value = power * (self.val) ** (power - 1)
         der = {k: value * v for k, v in self.der.items()}
-        self.var = self.var + " ** " + str(round_3sf(power))
+        # self.var = self.var + " ** " + str(round_3sf(power))
         return AutoDiff(self.var, self.val ** power, der)
 
     def __rpow__(self,power):
@@ -164,16 +164,6 @@ class AutoDiff():
     def __eq__(self, other):
         """Assesses the equality of two AutoDiff objects"""
         try:
-# <<<<<<< HEAD
-#             value = power * (self.val) ** (power - 1)
-#             der = {k: value * v for k, v in self.der.items()}
-#             der = Counter(der)
-#             return AutoDiff(self.var, self.val ** power, der)
-#         except AttributeError:
-#             self.der = counter(self.der)
-#             return AutoDiff(self.var, self.val ** power, self.der)
-
-# =======
             return self.val == other.val and self.der == other.der
         except:
             return False
