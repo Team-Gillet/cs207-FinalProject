@@ -7,10 +7,8 @@ def sin(x):
     if (type(x).__name__) is 'AutoDiffVector':
         return _sinV(x)
 
-    # var = "sin(" + x.var + ")"
-    var= x.var
-
     try:
+        var = x.var
         val = np.sin(x.val)
         der = {k: np.cos(x.val) * v for k, v in x.der.items()}
         return sad.AutoDiff(var, val, der)
@@ -34,11 +32,10 @@ def cos(x):
 
     if (type(x).__name__) is 'AutoDiffVector':
         return _cosV(x)
-    
-    # var = "cos(" + x.var + ")"
-    var= x.var
+
 
     try:
+        var = x.var
         val = np.cos(x.val)
         der = {k: -np.sin(x.val) * v for k, v in x.der.items()}
         return sad.AutoDiff(var, val, der)
@@ -63,10 +60,8 @@ def tan(x):
     if (type(x).__name__) is 'AutoDiffVector':
         return _tanV(x)
 
-    # var = "tan(" + x.var + ")"
-    var= x.var
-
     try:
+        var = x.var
         val = np.tan(x.val)
         der = {k: (1 / (np.cos(x.val) ** 2)) * v for k, v in x.der.items()}
         return sad.AutoDiff(var, val, der)
@@ -92,10 +87,8 @@ def arcsin(x):
     if (type(x).__name__) is 'AutoDiffVector':
         return _arcsinV(x)
 
-    # var = "arcsin(" + x.var + ")"
-    var= x.var
-
     try:
+        var = x.var
         val = np.arcsin(x.val)
         der = {k: (1 / np.sqrt(1 - x.val ** 2)) * v for k, v in x.der.items()}
         return sad.AutoDiff(var, val, der)
@@ -120,10 +113,8 @@ def arccos(x):
     if (type(x).__name__) is 'AutoDiffVector':
         return _arccosV(x)
 
-    # var = "arccos(" + x.var + ")"
-    var= x.var
-
     try:
+        var = x.var
         val = np.arccos(x.val)
         der = {k: (1 / -np.sqrt(1 - x.val ** 2)) * v for k, v in x.der.items()}
         return sad.AutoDiff(var, val, der)
@@ -150,10 +141,8 @@ def arctan(x):
     if (type(x).__name__) is 'AutoDiffVector':
         return _arctanV(x)
 
-    # var = "arctan(" + x.var + ")"
-    var= x.var
-
     try:
+        var = x.var
         val = np.arctan(x.val)
         der = {k: (1 / (1 + x.val * x.val)) * v for k, v in x.der.items()}
         return sad.AutoDiff(var, val, der)
@@ -179,11 +168,9 @@ def exp(x):
     
     if (type(x).__name__) is 'AutoDiffVector':
         return _expV(x)
-    
-    # var = "exp(" + x.var + ")"
-    var= x.var
 
     try:
+        var = x.var
         val = np.exp(x.val)
         der = {k: val * v for k, v in x.der.items()}
         return sad.AutoDiff(var, val, der)
@@ -206,16 +193,10 @@ def _expV(x):
 def log(x, base=math.e):
 
     if (type(x).__name__) is 'AutoDiffVector':
-        return _logV(x)
-    
-    # Create variable name
-    # if base == math.e:
-    #     var = "ln(" + x.var + ")"
-    # else:
-    #     var = "log_{" + str(base) + "}(" + x.var + ")"
-    var= x.var
+        return _logV(x, base=base)
 
     try:
+        var = x.var
         val = math.log(x.val, base)
         der = {k: (1 / (x.val * math.log(base))) * v for k, v in x.der.items()}
         return sad.AutoDiff(var, val, der)
@@ -225,11 +206,11 @@ def log(x, base=math.e):
         # print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: logV(ADV) instead of log(ADV)")
         return math.log(x, base)
 
-def _logV(x):
+def _logV(x, base=math.e):
     try:
         objects = []
         for i in range(len(x.objects)):
-            new_object = log(x.objects[list(x.objects.keys())[i]])
+            new_object = log(x.objects[list(x.objects.keys())[i]], base=base)
             objects.append(new_object)
             
         return sad.autodiff.AutoDiffVector(objects)
@@ -242,10 +223,9 @@ def sinh(x):
     if (type(x).__name__) is 'AutoDiffVector':
         return _sinhV(x)
 
-    # var = "sinh(" + x.var + ")"
-    var= x.var
 
     try:
+        var = x.var
         val = math.sinh(x.val)
         der = {k: math.cosh(x.val) * v for k, v in x.der.items()}
         return sad.AutoDiff(var, val, der)
@@ -274,10 +254,8 @@ def cosh(x):
     if (type(x).__name__) is 'AutoDiffVector':
         return _coshV(x)
 
-    # var = "cosh(" + x.var + ")"
-    var= x.var
-
     try:
+        var = x.var
         val = math.cosh(x.val)
         der = {k: math.sinh(x.val) * v for k, v in x.der.items()}
         return sad.AutoDiff(var, val, der)
@@ -304,11 +282,9 @@ def tanh(x):
 
     if (type(x).__name__) is 'AutoDiffVector':
         return _tanhV(x)
-
-    # var = "tanh(" + x.var + ")"
-    var= x.var
     
     try:
+        var = x.var
         val = math.tanh(x.val)
         der = {k: (1 / (cosh(x.val) ** 2)) * v for k, v in x.der.items()}
         return sad.AutoDiff(var, val, der)
@@ -316,7 +292,7 @@ def tanh(x):
         print("Invalid value for mathematical function")
     except AttributeError:
         # print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: tanhV(ADV) instead of tanh(ADV)")
-        return 1 / (cosh(x) ** 2)
+        return np.tanh(x)
     
 def sqrt(x):
   try:
@@ -338,7 +314,3 @@ def _tanhV(x):
     except AttributeError:
         print("Warning: For AutoDiff objects, please use the corresponding mathematical function: tanh(AD) instead of tanhV(AD)")
         return np.tanh(x)
-
-
-if __name__ == '__main__':
-    x1 = sad.AutoDiff('x',1)

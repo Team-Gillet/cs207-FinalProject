@@ -41,20 +41,18 @@ class AutoDiff():
 
     def __add__(self, other):
         """Performs addition on two AutoDiff objects"""
+
+        if type(other).__name__ is 'AutoDiffVector':
+            return other.__add__(self)
+        
         try:  # ask forgiveness
             total = Counter()
             total.update(self.der)
             total.update(other.der)
-
-            # if type(other).__name__ is 'AutoDiff':
-            #     var = self.var + " + " + other.var
         
             return AutoDiff(self.var, self.val + other.val, total)
 
         except AttributeError:
-
-            # if type(other).__name__ is not 'AutoDiff':
-            #     var = self.var + " + " + str(round_3sf(other))
 
             return AutoDiff(self.var, self.val + other, self.der)
 
@@ -64,15 +62,14 @@ class AutoDiff():
 
     def __sub__(self, other):
         """Performs subtraction on two AutoDiff objects"""
+
+        if type(other).__name__ is 'AutoDiffVector':
+            return other.__rsub__(self)
+
         try:
             total = Counter()
             total.update(self.der)
             total.update((-other).der)
-            
-            # if type(other).__name__ is 'AutoDiff':
-            #     var = self.var + " - " + other.var
-            # else:
-            #     var = self.var + " - " + str(round_3sf(other))
                 
             return AutoDiff(self.var, self.val - other.val, total)
 
@@ -90,6 +87,10 @@ class AutoDiff():
 
     def __mul__(self, other):
         """Performs multiplication of an AutoDiff object with scalars and other AutoDiff objects"""
+        
+        if type(other).__name__ is 'AutoDiffVector':
+            return other.__mul__(self)
+
         try:
             total = Counter()
             der1 = {k: other.val * v for k, v in self.der.items()}
@@ -136,6 +137,7 @@ class AutoDiff():
 
     def __truediv__(self,other):
         """Performs division of an AutoDiff object with scalars and other AutoDiff objects"""
+
         try:
             return self * (other.reciprocal())
         except AttributeError:
@@ -215,10 +217,6 @@ class AutoDiffVector():
             if type(objects[i]).__name__ is not 'AutoDiff':
                 raise ValueError('Variable inputs need to be AutoDiff objects!')
 
-            # print(type(object[i]))
-
-
-
             self.objects[objects[i].var] = objects[i]
             self.variables.append(objects[i].var)
             
@@ -227,7 +225,7 @@ class AutoDiffVector():
         
         
     def __add__(self, other):
-        
+
         objects = []
         for i in range(len(self.objects)):
             new_object = self.objects[list(self.objects.keys())[i]] + other
@@ -236,11 +234,15 @@ class AutoDiffVector():
         return AutoDiffVector(objects)
     
     def __radd__(self, other):
-        
-        return self.__add__(other)
+        objects = []
+        for i in range(len(self.objects)):
+            new_object = self.objects[list(self.objects.keys())[i]] + other
+            objects.append(new_object)
+            
+        return AutoDiffVector(objects)
+        #return self.__add__(other)
 
     def __sub__(self, other):
-
         objects = []
         for i in range(len(self.objects)):
             new_object = self.objects[list(self.objects.keys())[i]] - other
@@ -250,7 +252,13 @@ class AutoDiffVector():
 
     def __rsub__(self,other):
 
-        return self.__sub__(other)
+        objects = []
+        for i in range(len(self.objects)):
+            new_object = other - self.objects[list(self.objects.keys())[i]] 
+            objects.append(new_object)
+            
+        return AutoDiffVector(objects)
+        #return self.__sub__(other)
 
     def __mul__(self, other):
 
@@ -295,7 +303,13 @@ class AutoDiffVector():
         return AutoDiffVector(objects)
 
     def __rpow__(self, other):
-        return self.__pow__(other)
+
+        objects = []
+        for i in range(len(self.objects)):
+            new_object = other ** (self.objects[list(self.objects.keys())[i]])
+            objects.append(new_object)
+
+        return AutoDiffVector(objects)
 
 
 
