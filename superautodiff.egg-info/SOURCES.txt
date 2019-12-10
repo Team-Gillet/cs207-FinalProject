@@ -1,0 +1,17 @@
+README.md
+setup.cfg
+setup.py
+superautodiff/__init__.py
+superautodiff/autodiff.py
+superautodiff/autodiffreverse.py
+superautodiff/functions.py
+superautodiff/tools.py
+superautodiff.egg-info/PKG-INFO
+superautodiff.egg-info/SOURCES.txt
+superautodiff.egg-info/dependency_links.txt
+superautodiff.egg-info/requires.txt
+superautodiff.egg-info/top_level.txt
+tests/__init__.py
+tests/test_autodiff.py
+tests/test_autodiffreverse.py
+tests/test_autodiffvector.py

@@ -126,6 +126,15 @@ class AutoDiffReverse():
         total = {self.var: other * value}
         return AutoDiffReverse(other / self.val, None, total)
     
+    def pass_table(self):
+        return forward_pass
+    
+    def clear_table(self):
+        global forward_pass_index 
+        global forward_pass 
+        forward_pass_index = 0
+        forward_pass = pd.DataFrame(columns=['Node', 'd1', 'd1value', 'd2', 'd2value'])
+    
 # Reverse Pass  
 def reversepass(df,vars):
   le = len(vars)

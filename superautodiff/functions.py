@@ -310,6 +310,11 @@ def _sinhV(x):
         
     return sad.autodiff.AutoDiffVector(objects)
 
+def _sinhR(x):
+    """Returns the sin_h of the AutoDiffReverse object"""
+    der = {x.var : np.cosh(x.val)}
+    der = Counter(der)
+    return sad.AutoDiffReverse(np.sinh(x.val), None, der)
 
 def cosh(x):
     """Returns the cosine_h of the AutoDiff or AutoDiffVector or AutoDiffReverse object"""
@@ -320,7 +325,7 @@ def cosh(x):
     try:
         var = x.var
         val = math.cosh(x.val)
-        der = {k: math.sinh(x.val) * v for k, v in x.der.items()}
+        der = {k: -math.sinh(x.val) * v for k, v in x.der.items()}
         der = Counter(der)
         return sad.AutoDiff(var, val, der)
     except ValueError:
@@ -338,6 +343,12 @@ def _coshV(x):
         objects.append(new_object)
         
     return sad.autodiff.AutoDiffVector(objects)
+
+def _coshR(x):
+    """Returns the cos_h of the AutoDiffReverse object"""
+    der = {x.var : -np.sinh(x.val)}
+    der = Counter(der)
+    return sad.AutoDiffReverse(np.cosh(x.val), None, der)
 
 def tanh(x):
     """Returns the tan_h of the AutoDiff or AutoDiffVector or AutoDiffReverse object"""
@@ -367,6 +378,11 @@ def _tanhV(x):
         
     return sad.autodiff.AutoDiffVector(objects)
 
+def _tanhR(x):
+    """Returns the sin_h of the AutoDiffReverse object"""
+    der = {x.var : 1/(cosh(x.val) ** 2}
+    der = Counter(der)
+    return sad.AutoDiffReverse(np.tanh(x.val), None, der)
       
 def sqrt(x):
   """Returns the square root of the AutoDiff or AutoDiffVector or AutoDiffReverse object"""
