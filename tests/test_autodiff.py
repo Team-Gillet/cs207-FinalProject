@@ -479,7 +479,7 @@ def test_sinh():
 def test_cosh():
 	x1 = sad.AutoDiff('x', 0.5)
 	f = sad.cosh(x1)
-	assert f.der['x'] == pytest.approx(np.sinh(0.5))
+	assert f.der['x'] == pytest.approx(-np.sinh(0.5))
 	#Test other attributes
 	assert next(iter(f.der)) == 'x'
 	assert f.var == 'x'
@@ -581,8 +581,18 @@ def test_gt():
 	assert (x1 > 10) == False
 
 
+def test_jacobian():
+    g = sad.AutoDiff('g', 3)
+    h = sad.AutoDiff('h', -4)
+    i = sad.AutoDiff('i', 7)
 
+    # Create functions
+    f1 = g+ 4
+    f2 = h**2 + 2*h - 12
 
-
-
+    variables = ['g', 'h', 'i']
+    functions = [f1, f2]
+    assert sad.jacobian(variables, functions) ==array([[ 1.,  0.,  0.],[ 0., -6., -1.]])
+    
+	
 
