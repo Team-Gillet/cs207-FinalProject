@@ -1,11 +1,8 @@
 # CS207-FinalProject
-Final project repo for grading
-
+## superautodiff
 
 Group number 1
 Members: Lucie Gillet, Jovin Leong, Jussi Sakari Jukarainen, Huahua Zheng
-
-Badges for TravisCI and Codecov:
 
 [![Build Status](https://travis-ci.org/Team-Gillet/cs207-FinalProject.svg?branch=master)](https://travis-ci.org/Team-Gillet/cs207-FinalProject.svg?branch=master)
 
