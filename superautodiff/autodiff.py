@@ -209,6 +209,7 @@ class AutoDiffVector():
         
         
     def __add__(self, other):
+        """Performs addition of an AutoDiffVector object and either a scalar or an AutoDiff object"""
 
         objects = []
         for i in range(len(self.objects)):
@@ -218,6 +219,7 @@ class AutoDiffVector():
         return AutoDiffVector(objects)
     
     def __radd__(self, other):
+        """Performs right addition of an AutoDiffVector object and either a scalar or an AutoDiff object"""
         objects = []
         for i in range(len(self.objects)):
             new_object = self.objects[list(self.objects.keys())[i]] + other
@@ -226,6 +228,7 @@ class AutoDiffVector():
         return AutoDiffVector(objects)
 
     def __sub__(self, other):
+        """Performs subtraction of an AutoDiffVector object and either a scalar or an AutoDiff object"""
         objects = []
         for i in range(len(self.objects)):
             new_object = self.objects[list(self.objects.keys())[i]] - other
@@ -234,6 +237,7 @@ class AutoDiffVector():
         return AutoDiffVector(objects)
 
     def __rsub__(self,other):
+        """Performs right subtraction of an AutoDiffVector object and either a scalar or an AutoDiff object"""
 
         objects = []
         for i in range(len(self.objects)):
@@ -243,6 +247,7 @@ class AutoDiffVector():
         return AutoDiffVector(objects)
 
     def __mul__(self, other):
+        """Performs multiplication of an AutoDiffVector object and either a scalar or an AutoDiff object"""
 
         objects = []
         for i in range(len(self.objects)):
@@ -252,9 +257,11 @@ class AutoDiffVector():
         return AutoDiffVector(objects)
 
     def __rmul__(self, other):
+        """Performs right multiplication of an AutoDiffVector object and either a scalar or an AutoDiff object"""
         return self.__mul__(other)
 
     def __neg__(self):
+        """Performs negation of an AutoDiffVector object and either a scalar or an AutoDiff object"""
 
         objects = []
         for i in range(len(self.objects)):
@@ -264,6 +271,7 @@ class AutoDiffVector():
         return AutoDiffVector(objects)
 
     def __truediv__(self, other):
+        """Performs division of an AutoDiffVector object and either a scalar or an AutoDiff object"""
 
         objects = []
         for i in range(len(self.objects)):
@@ -273,9 +281,11 @@ class AutoDiffVector():
         return AutoDiffVector(objects)
 
     def __rtruediv__(self, other):
+        """Performs right division of an AutoDiffVector object and either a scalar or an AutoDiff object"""
         return self.__truediv__(other)
 
     def __pow__(self, other):
+        """Performs exponentiation of an AutoDiffVector object and either a scalar or an AutoDiff object"""
 
         objects = []
         for i in range(len(self.objects)):
@@ -285,6 +295,7 @@ class AutoDiffVector():
         return AutoDiffVector(objects)
 
     def __rpow__(self, other):
+        """Performs right exponentiation of an AutoDiffVector object and either a scalar or an AutoDiff object"""
 
         objects = []
         for i in range(len(self.objects)):
@@ -329,3 +340,8 @@ def vectorize(var, val, der=1.0):
         objects.append(AutoDiff(var[i], val[i], der[i]))
     
     return AutoDiffVector(objects)
+
+# Helper function required for variable naming
+def round_3sf(x, sig=3):
+    """Rounds a numeric input to 3 significant figures"""
+    return round(x, sig-int(math.floor(math.log10(abs(x))))-1)
