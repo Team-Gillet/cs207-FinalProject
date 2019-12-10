@@ -51,7 +51,7 @@ def do_vector_tests_no_other(vec1, vec2, der, val):
         assert vec2.objects[key1].val == pytest.approx(val)
 
 
-### Test incorrect inputs
+### Test inputs
 
 def test_vector_input_no_args():
     with pytest.raises(TypeError):
@@ -62,14 +62,16 @@ def test_vector_input_two_args():
         x1 = sad.AutoDiffVector('x',1)
 
 def test_vector_inputlist_not_autodiff():
-    with pytest.raises(TypeError):
-        x = sad.AutoDiffVector('x', 2)
+    with pytest.raises(ValueError):
+        x = sad.AutoDiff('x', 2)
         y = 'asd'
         x1 = sad.AutoDiffVector([x, y])
 
 def test_vector_inputlist_duplicate_var():
     with pytest.raises(ValueError):
-        x1 = sad.AutoDiffVector(['x','x'])
+        x = sad.AutoDiff('x', 2)
+        y = sad.AutoDiff('x', 2)
+        x1 = sad.AutoDiffVector([x,y])
 
 
 ### 1. Addition

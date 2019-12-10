@@ -189,10 +189,6 @@ class AutoDiff():
 class AutoDiffVector():
     def __init__(self, objects):
         
-        # Ensure we have at least one AutoDiff object
-        if len(objects) == 0:
-            raise ValueError("AutoDiffVector requires at least one AutoDiff object as input")
-        
         self.objects = {}
         self.variables = []
         
