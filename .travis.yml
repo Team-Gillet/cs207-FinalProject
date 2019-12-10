@@ -8,6 +8,7 @@ before_install:
     - pip install coverage
     - pip install codecov
     - pip install numpy
+    - pip install pandas
 
 script:
     - pytest --cov=./
