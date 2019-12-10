@@ -1,0 +1,26 @@
+Metadata-Version: 2.1
+Name: superautodiff
+Version: 1.0.1
+Summary: The best automatic differentiation package for Python
+Home-page: https://github.com/Team-Gillet/cs207-FinalProject
+Author: Jovin Leong; Lucie Gillet; Huahua Zheng, Sakari Jukarainen
+Author-email: jovinleong@g.harvard.edu
+License: UNKNOWN
+Description: # CS207-FinalProject
+        ## superautodiff
+        
+        Group number 1
+        Members: Lucie Gillet, Jovin Leong, Jussi Sakari Jukarainen, Huahua Zheng
+        
+        [![Build Status](https://travis-ci.org/Team-Gillet/cs207-FinalProject.svg?branch=master)](https://travis-ci.org/Team-Gillet/cs207-FinalProject.svg?branch=master)
+        
+        [![Coverage Status](https://codecov.io/gh/Team-Gillet/cs207-FinalProject/branch/master/graph/badge.svg)](https://codecov.io/gh/Team-Gillet/cs207-FinalProject)
+        
+        
+        
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Description-Content-Type: text/markdown
