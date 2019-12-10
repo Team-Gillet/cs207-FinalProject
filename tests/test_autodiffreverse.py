@@ -139,8 +139,16 @@ def test_reverse_sqrt():
 	f = sad.sqrt(x1)
 	assert f.der['x1'] ==  pytest.approx(1/4)
 
-
-
+def test_reverse_backpass():
+    x1 = sad.AutoDiffReverse(4, 'x1')
+    x2 = sad.AutoDiffReverse(7, 'x2')
+    x3 = sad.AutoDiffReverse(3, 'x2')
+    f = x1+2*x2-x3*4
+    assert f.val == 6
+    testdic = reversepass(f.pass_table(),["x1","x2","x3"])
+    assert testdic ==  {'x1': 1, 'x2': 2, 'x3': -4}
+    f.clear_table()
+    
 
 
 
