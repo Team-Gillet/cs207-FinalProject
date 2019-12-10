@@ -8,6 +8,16 @@ sys.path.append('..')
 import superautodiff as sad
 
 
+def test_reverse_backpass():
+    x1 = sad.AutoDiffReverse(4, 'x1')
+    x2 = sad.AutoDiffReverse(7, 'x2')
+    x3 = sad.AutoDiffReverse(3, 'x3')
+    f = x1+2*x2-x3*4
+    assert f.val == 6
+    testdic = sad.reversepass(f.pass_table(),["x1","x2","x3"])
+    assert testdic ==  {'x1': 1, 'x2': 2, 'x3': -4}
+    f.clear_table()
+
 def test_reverse_add():
 	x1 = sad.AutoDiffReverse(4, 'x1')
 	x2 = sad.AutoDiffReverse(3, 'x2')
@@ -96,6 +106,25 @@ def test_reverse_tan():
 	
 	f = sad.tan(x1)
 	assert f.der['x1'] ==  pytest.approx(1 / (np.cos(4) ** 2))
+	
+def test_reverse_sinh():
+	x1 = sad.AutoDiffReverse(4, 'x1')
+	
+	f = sad.sinh(x1)
+	assert f.der['x1'] ==  pytest.approx(np.cosh(4))
+
+def test_reverse_cosh():
+	x1 = sad.AutoDiffReverse(4, 'x1')
+	
+	f = sad.cosh(x1)
+	assert f.der['x1'] ==  pytest.approx(-np.sinh(4))
+
+
+def test_reverse_tanh():
+	x1 = sad.AutoDiffReverse(4, 'x1')
+	f = sad.tanh(x1)
+	assert f.der['x1'] ==  pytest.approx(1 / (np.cosh(4) ** 2))
+
 
 def test_reverse_arcsin():
 	x1 = sad.AutoDiffReverse(0.5, 'x1')
@@ -138,9 +167,7 @@ def test_reverse_sqrt():
 	
 	f = sad.sqrt(x1)
 	assert f.der['x1'] ==  pytest.approx(1/4)
-
-
-
+    
 
 
 
