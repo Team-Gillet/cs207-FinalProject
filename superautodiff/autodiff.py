@@ -64,7 +64,7 @@ class AutoDiff():
         """Performs subtraction on two AutoDiff objects"""
 
         if type(other).__name__ is 'AutoDiffVector':
-            return other.__rsub__(self)
+            return self.__add__(other.__neg__())
 
         try:
             total = Counter()
@@ -124,6 +124,9 @@ class AutoDiff():
 
     def __truediv__(self,other):
         """Performs division of an AutoDiff object with scalars and other AutoDiff objects"""
+
+        if type(other).__name__ is 'AutoDiffVector':
+            raise NotImplementedError("Division of AutoDiff object with AutoDiffVector object not implemented")
 
         try:
             return self * (other.reciprocal())
@@ -237,7 +240,7 @@ class AutoDiffVector():
 
         objects = []
         for i in range(len(self.objects)):
-            new_object = other - self.objects[list(self.objects.keys())[i]] 
+            new_object = other - self.objects[list(self.objects.keys())[i]]
             objects.append(new_object)
             
         return AutoDiffVector(objects)
@@ -278,7 +281,8 @@ class AutoDiffVector():
 
     def __rtruediv__(self, other):
         """Performs right division of an AutoDiffVector object and either a scalar or an AutoDiff object"""
-        return self.__truediv__(other)
+        raise NotImplementedError("Division of AutoDiff object with AutoDiffVector object not implemented")
+        #return self.__truediv__(other)
 
     def __pow__(self, other):
         """Performs exponentiation of an AutoDiffVector object and either a scalar or an AutoDiff object"""

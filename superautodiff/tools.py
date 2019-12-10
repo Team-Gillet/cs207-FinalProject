@@ -19,15 +19,16 @@ def jacobian(variables, functions):
     
     # Case where functions is an ADV object
     else:
-        if len(functions.objects) is 0:
-            raise ValueError("Functions cannot be empty; input either an AutoDiffVector object or a list of AutoDiff objects")
-        
         try:
+            if len(functions.objects) is 0:
+                raise ValueError("Functions cannot be empty; input either an AutoDiffVector object or a list of AutoDiff objects")
+            
+            
             for key in list(functions.objects.keys()):
                 for variable in variables:
                     derivatives.append((functions.objects[key].der[variable]))
             return np.array(derivatives).reshape(len(functions.objects), len(variables))
-        
+            
         # If neither case fits raise an error
         except:
             raise ValueError("Function inputs need to either be an AutoDiffVector object or an array of AutoDiff objects")
