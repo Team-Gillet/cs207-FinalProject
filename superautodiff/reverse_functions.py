@@ -40,3 +40,9 @@ def exp(x):
 def log(x, base=math.e):
     der = {x.var : 1 / (x.val * math.log(base))}
     return AutoDiff(math.log(x.val, base), None, der)
+
+def sqrt(x):
+  try:
+    return x**0.5
+  except:
+    return np.sqrt(x)
