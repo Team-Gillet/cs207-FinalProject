@@ -227,23 +227,22 @@ def test_vector_div():
 
 
 def test_vector_rdiv():
-    with pytest.raises(NotImplementedError):
-        f1 = sad.AutoDiff('x', 2)
-        f2 = sad.AutoDiff('y', 2)
-        other = sad.AutoDiff('z',2)
-        # do operations on objects
-        vec1 = 3 / sad.AutoDiffVector([f1,f2])
-        vec1_other = other / sad.AutoDiffVector([f1,f2])
-        vec2 = 3 / sad.vectorize(['x','y'], [2,2])
-        vec2_other = other / sad.vectorize(['x','y'], [2,2])
-        f3 = 3 / f1
-        f4 = other / f1
-        #
-        der = f3.der['x']
-        val = f3.val
-        der_other = f4.der['x']
-        val_other = f4.val
-        do_vector_tests(vec1, vec1_other, vec2, vec2_other, der, der_other, val, val_other)
+    f1 = sad.AutoDiff('x', 2)
+    f2 = sad.AutoDiff('y', 2)
+    other = sad.AutoDiff('z',2)
+    # do operations on objects
+    vec1 = 3 / sad.AutoDiffVector([f1,f2])
+    vec1_other = other / sad.AutoDiffVector([f1,f2])
+    vec2 = 3 / sad.vectorize(['x','y'], [2,2])
+    vec2_other = other / sad.vectorize(['x','y'], [2,2])
+    f3 = 3 / f1
+    f4 = other / f1
+    #
+    der = f3.der['x']
+    val = f3.val
+    der_other = f4.der['x']
+    val_other = f4.val
+    do_vector_tests(vec1, vec1_other, vec2, vec2_other, der, der_other, val, val_other)
 
 
 ### 6. Taking powers
