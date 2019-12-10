@@ -512,7 +512,7 @@ def test_sqrt():
 
 def test_logistic():
 	x1 = sad.AutoDiff('x', 4.0)
-	f = 1/(1+sad.exp(-x1))
+	f = sad.logistic(x1)
 	assert f.der['x'] == pytest.approx(np.exp(4)/(1 + np.exp(4))**2)
 	#Test other attributes
 	assert next(iter(f.der)) == 'x'
@@ -528,6 +528,7 @@ def test_eq():
 	assert (x1 == y1) == False
 	y1 = sad.AutoDiff('y', 2)*2
 	assert (x1 == y1) == False
+	assert (x1 == 0) == False
 
 def test_ne():
 	x1 = sad.AutoDiff('x', 1)*2
@@ -547,6 +548,7 @@ def test_lt():
 	y1 = sad.AutoDiff('y', 1)*2
 	assert (x1 < x1) == False
 	assert (x1 < y1) == False
+	assert (x1 < 0) == False
 
 def test_le():
 	x1 = sad.AutoDiff('x', 1)*1
@@ -556,6 +558,7 @@ def test_le():
 	x1 = sad.AutoDiff('x', 2)*2
 	y1 = sad.AutoDiff('y', 1)*2
 	assert (x1 <= y1) == False
+	assert (x1 <= 0) == False
 
 def test_ge():
 	x1 = sad.AutoDiff('x', 2)*1
@@ -565,6 +568,7 @@ def test_ge():
 	x1 = sad.AutoDiff('x', 1)*2
 	y1 = sad.AutoDiff('y', 2)*2
 	assert (x1 >= y1) == False
+	assert (x1 >= 10) == False
 
 def test_gt():
 	x1 = sad.AutoDiff('x', 2)*2
@@ -574,6 +578,7 @@ def test_gt():
 	y1 = sad.AutoDiff('y', 2)*2
 	assert (x1 > x1) == False
 	assert (x1 > y1) == False
+	assert (x1 > 10) == False
 
 
 
