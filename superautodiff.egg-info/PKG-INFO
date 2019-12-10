@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: superautodiff
-Version: 1.0.1
+Version: 1.0.5
 Summary: The best automatic differentiation package for Python
 Home-page: https://github.com/Team-Gillet/cs207-FinalProject
 Author: Jovin Leong; Lucie Gillet; Huahua Zheng, Sakari Jukarainen

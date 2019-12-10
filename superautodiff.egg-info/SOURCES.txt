@@ -5,7 +5,6 @@ superautodiff/__init__.py
 superautodiff/autodiff.py
 superautodiff/autodiffreverse.py
 superautodiff/functions.py
-superautodiff/tools.py
 superautodiff.egg-info/PKG-INFO
 superautodiff.egg-info/SOURCES.txt
 superautodiff.egg-info/dependency_links.txt

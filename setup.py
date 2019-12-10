@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
                  name="superautodiff",
-                 version="1.0.1",
+                 version="1.0.5",
                  author="Jovin Leong; Lucie Gillet; Huahua Zheng, Sakari Jukarainen",
                  author_email="jovinleong@g.harvard.edu",
                  description="The best automatic differentiation package for Python",

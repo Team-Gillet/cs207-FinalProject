@@ -51,7 +51,7 @@ def do_vector_tests_no_other(vec1, vec2, der, val):
         assert vec2.objects[key1].val == pytest.approx(val)
 
 
-### Test incorrect inputs
+### Test inputs
 
 def test_vector_input_no_args():
     with pytest.raises(TypeError):
@@ -62,14 +62,16 @@ def test_vector_input_two_args():
         x1 = sad.AutoDiffVector('x',1)
 
 def test_vector_inputlist_not_autodiff():
-    with pytest.raises(TypeError):
-        x = sad.AutoDiffVector('x', 2)
+    with pytest.raises(ValueError):
+        x = sad.AutoDiff('x', 2)
         y = 'asd'
         x1 = sad.AutoDiffVector([x, y])
 
 def test_vector_inputlist_duplicate_var():
     with pytest.raises(ValueError):
-        x1 = sad.AutoDiffVector(['x','x'])
+        x = sad.AutoDiff('x', 2)
+        y = sad.AutoDiff('x', 2)
+        x1 = sad.AutoDiffVector([x,y])
 
 
 ### 1. Addition
@@ -131,23 +133,23 @@ def test_vector_sub():
     val_other = f4.val
     do_vector_tests(vec1, vec1_other, vec2, vec2_other, der, der_other, val, val_other)
 
-# def test_vector_rsub():
-#     f1 = sad.AutoDiff('x', 1)
-#     f2 = sad.AutoDiff('y', 1)
-#     other = sad.AutoDiff('z',2)
-#     # do operations on objects
-#     vec1 = 1 - sad.AutoDiffVector([f1,f2])
-#     vec1_other = 1 - sad.AutoDiffVector([f1,f2])
-#     vec2 = 1 - sad.vectorize(['x','y'], [1,1])
-#     vec2_other = other - sad.vectorize(['x','y'], [1,1])
-#     f3 = 1 - f1
-#     f4 = other - f1
-#     #
-#     der = f3.der['x']
-#     val = f3.val
-#     der_other = f4.der['x']
-#     val_other = f4.val
-#     do_vector_tests(vec1, vec1_other, vec2, vec2_other, der, der_other, val, val_other)
+def test_vector_rsub():
+    f1 = sad.AutoDiff('x', 1)
+    f2 = sad.AutoDiff('y', 1)
+    other = sad.AutoDiff('z',1)
+    # do operations on objects
+    vec1 = 1 - sad.AutoDiffVector([f1,f2])
+    vec1_other = other - sad.AutoDiffVector([f1,f2])
+    vec2 = 1 - sad.vectorize(['x','y'], [1,1])
+    vec2_other = other - sad.vectorize(['x','y'], [1,1])
+    f3 = 1 - f1
+    f4 = other - f1
+    #
+    der = f3.der['x']
+    val = f3.val
+    der_other = f4.der['x']
+    val_other = f4.val
+    do_vector_tests(vec1, vec1_other, vec2, vec2_other, der, der_other, val, val_other)
 
 
 ### 3. Multiplication
@@ -223,23 +225,24 @@ def test_vector_div():
     val_other = f4.val
     do_vector_tests(vec1, vec1_other, vec2, vec2_other, der, der_other, val, val_other)
 
-# def test_vector_rdiv():
-#     f1 = sad.AutoDiff('x', 2)
-#     f2 = sad.AutoDiff('y', 2)
-#     other = sad.AutoDiff('z',2)
-#     # do operations on objects
-#     vec1 = 3 / sad.AutoDiffVector([f1,f2])
-#     vec1_other = other / sad.AutoDiffVector([f1,f2])
-#     vec2 = 3 / sad.vectorize(['x','y'], [2,2])
-#     vec2_other = other / sad.vectorize(['x','y'], [2,2])
-#     f3 = 3 / f1
-#     f4 = other / f1
-#     #
-#     der = f3.der['x']
-#     val = f3.val
-#     der_other = f4.der['x']
-#     val_other = f4.val
-#     do_vector_tests(vec1, vec1_other, vec2, vec2_other, der, der_other, val, val_other)
+
+def test_vector_rdiv():
+    f1 = sad.AutoDiff('x', 2)
+    f2 = sad.AutoDiff('y', 2)
+    other = sad.AutoDiff('z',2)
+    # do operations on objects
+    vec1 = 3 / sad.AutoDiffVector([f1,f2])
+    vec1_other = other / sad.AutoDiffVector([f1,f2])
+    vec2 = 3 / sad.vectorize(['x','y'], [2,2])
+    vec2_other = other / sad.vectorize(['x','y'], [2,2])
+    f3 = 3 / f1
+    f4 = other / f1
+    #
+    der = f3.der['x']
+    val = f3.val
+    der_other = f4.der['x']
+    val_other = f4.val
+    do_vector_tests(vec1, vec1_other, vec2, vec2_other, der, der_other, val, val_other)
 
 
 ### 6. Taking powers
