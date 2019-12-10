@@ -100,7 +100,7 @@ def test_correct_init():
     assert f.der['x'] == pytest.approx(1.0)
     #Test other attributes
     assert next(iter(f.der)) == 'x'
-    assert f.var == 'x' # TODO: change to dict
+    assert f.var == 'x'
     assert f.val == pytest.approx(2.0)
 
 
@@ -113,7 +113,7 @@ def test_add_constant():
     assert f.der['x'] == pytest.approx(1.0)
     #Test other attributes
     assert next(iter(f.der)) == 'x'
-    #assert f.var == 'x + 1' # TODO: change to dict
+    #assert f.var == 'x + 1'
     assert f.val == pytest.approx(3.0)
 
 #REMOVE?
@@ -129,7 +129,7 @@ def test_radd_constant():
     assert f.der['x'] == pytest.approx(1.0)
     #Test other attributes
     assert next(iter(f.der)) == 'x'
-    #assert f.var == 'x + 1' # TODO: change to dict
+    #assert f.var == 'x + 1'
     assert f.val == pytest.approx(3.0)
 
 # f(x) = x + x; f(2) = 4; f'(x) = 2; f'(2) = 2
@@ -139,7 +139,7 @@ def test_add_autodiff_self():
     assert f.der['x'] == pytest.approx(2.0)
     #Test other attributes
     assert next(iter(f.der)) == 'x'
-    #assert f.var == 'x + x' # TODO: change to dict
+    #assert f.var == 'x + x'
     assert f.val == pytest.approx(4.0)
 
 # f(x) = x + x; f(2) = 4; f'(x) = 2; f'(2) = 2
@@ -150,7 +150,7 @@ def test_add_autodiff_other():
 	assert f.der['x'] == pytest.approx(2.0) # f(x)=x + x; f'(x) = 2; f'(2) = 2
 	#Test other attributes
 	assert next(iter(f.der)) == 'x'
-	#assert f.var == 'x + x' # TODO: change to dict
+	#assert f.var == 'x + x'
 	assert f.val == 4.0
 
 #TO DO: update functionality for multiple variables
@@ -170,7 +170,7 @@ def test_sub_constant():
     assert f.der['x'] == pytest.approx(1.0)
     #Test other attributes
     assert next(iter(f.der)) == 'x'
-    #assert f.var == 'x - 1' # TODO: change to dict
+    #assert f.var == 'x - 1'
     assert f.val == pytest.approx(1.0)
 
 def test_sub_str():
@@ -185,7 +185,7 @@ def test_rsub_constant():
     assert f.der['x'] == pytest.approx(1.0)
     #Test other attributes
     assert next(iter(f.der)) == 'x'
-    #assert f.var == 'x - 1' # TODO: change to dict
+    #assert f.var == 'x - 1'
     assert f.val == 1.0
 
 # f(x) = x - x; f(2) = 0; f'(x) = 0; f'(2) = 0
@@ -195,7 +195,7 @@ def test_sub_autodiff_self():
 	assert f.der['x'] == pytest.approx(0.0)
 	#Test other attributes
 	assert next(iter(f.der)) == 'x'
-	#assert f.var == 'x - x' # TODO: change to dict
+	#assert f.var == 'x - x'
 	assert f.val == pytest.approx(0.0)
 
 # f(x) = x - x; f(2) = 0; f'(x) = 0; f'(2) = 0
@@ -206,7 +206,7 @@ def test_sub_autodiff_other():
 	assert f.der['x'] == pytest.approx(0.0)
 	#Test other attributes
 	assert next(iter(f.der)) == 'x'
-	#assert f.var == 'x - x' # TODO: change to dict
+	#assert f.var == 'x - x'
 	assert f.val == pytest.approx(0.0)
 
 # TO DO: update functionality for multiple variables
@@ -226,7 +226,7 @@ def test_mul_constant():
     assert f.der['x'] == pytest.approx(3.0)
     #Test other attributes
     assert next(iter(f.der)) == 'x'
-    #assert f.var == 'x * 3' # TODO: change to dict
+    #assert f.var == 'x * 3'
     assert f.val == pytest.approx(6.0)
 
 def test_mul_str():
@@ -241,7 +241,7 @@ def test_rmul_constant():
     assert f.der['x'] == pytest.approx(3.0)
     #Test other attributes
     assert next(iter(f.der)) == 'x'
-    #assert f.var == '3 * x' # TODO: change to dict
+    #assert f.var == '3 * x'
     assert f.val == pytest.approx(6.0)
 
 # f(x) = x^2; f(2) = 4; f'(x) = 2x; f'(2) = 4
@@ -251,7 +251,7 @@ def test_mul_autodiff_self():
 	assert f.der['x'] == pytest.approx(4.0)
 	#Test other attributes
 	assert next(iter(f.der)) == 'x'
-	#assert f.var == 'x * x' # TODO: change to dict
+	#assert f.var == 'x * x'
 	assert f.val == pytest.approx(4.0)
 
 # f(x) = x^2; f(2) = 4; f'(x) = 2x; f'(2) = 4
@@ -262,7 +262,7 @@ def test_mul_autodiff_other():
 	assert f.der['x'] == pytest.approx(4.0)
 	#Test other attributes
 	assert next(iter(f.der)) == 'x'
-	#assert f.var == 'x * x' # TODO: change to dict
+	#assert f.var == 'x * x'
 	assert f.val == pytest.approx(4.0)
 
 #TO DO: update functionality for multiple variables
@@ -280,7 +280,7 @@ def test_neg():
     assert f.der['x'] == pytest.approx(-1.0)
     #Test other attributes
     assert next(iter(f.der)) == 'x'
-    #assert f.var == 'x' # TODO: change to dict
+    #assert f.var == 'x'
     assert f.val == pytest.approx(-2.0)
 
 
@@ -293,7 +293,7 @@ def test_div_constant():
     assert f.der['x'] == pytest.approx(0.5)
     #Test other attributes
     assert next(iter(f.der)) == 'x'
-    #assert f.var == 'x' # TODO: change to dict
+    #assert f.var == 'x'
     assert f.val == pytest.approx(2.0)
 
 # f(x) = 2/x; f(4) = 1/2; f'(x) = -2/x^2; f'(4) = -1/8
@@ -303,7 +303,7 @@ def test_rdiv_constant():
     assert f.der['x'] == pytest.approx(-0.125)
     #Test other attributes
     assert next(iter(f.der)) == 'x'
-    #assert f.var == 'x' # TODO: change to dict
+    #assert f.var == 'x'
     assert f.val == pytest.approx(0.5)
 
 # f(x) = 1; f(2) = 1; f'(x) = 0; f'(2) = 0
@@ -313,7 +313,7 @@ def test_div_autodiff_self():
 	assert f.der['x'] == pytest.approx(0.0)
 	#Test other attributes
 	assert next(iter(f.der)) == 'x'
-	#assert f.var == 'x' # TODO: change to dict
+	#assert f.var == 'x'
 	assert f.val == pytest.approx(1.0)
 
 # f(x) = 1; f(2) = 1; f'(x) = 0; f'(2) = 0
@@ -324,7 +324,7 @@ def test_div_autodiff_other():
 	assert f.der['x'] == pytest.approx(0.0)
 	#Test other attributes
 	assert next(iter(f.der)) == 'x'
-	#assert f.var == 'x' # TODO: change to dict
+	#assert f.var == 'x'
 	assert f.val == pytest.approx(1.0)
 
 #TO DO: update functionality for multiple variables
@@ -344,7 +344,7 @@ def test_pow():
 	assert f.der['x'] == pytest.approx(4.0)
 	#Test other attributes
 	assert next(iter(f.der)) == 'x'
-	#assert f.var == 'x' # TODO: change to dict
+	assert f.var == 'x'
 	assert f.val == pytest.approx(4.0)
 
 # f(x) = 2^x; f(2) = 4; f'(x) = 2^x*ln(2); f'(2) = 4ln(2)
@@ -354,7 +354,7 @@ def test_rpow():
 	assert f.der['x'] == pytest.approx(4*math.log(2, math.e))
 	#Test other attributes
 	assert next(iter(f.der)) == 'x'
-	#assert f.var == 'x' # TODO: change to dict
+	assert f.var == 'x'
 	assert f.val == pytest.approx(4.0)
 
 ### 7. Additional functions from NumPy
@@ -366,7 +366,7 @@ def test_sin():
 	assert f.der['x'] == pytest.approx(1.0)
 	#Test other attributes
 	assert next(iter(f.der)) == 'x'
-	#assert f.var == 'sin(x)' # TODO: change to dict
+	assert f.var == 'x'
 	assert f.val == pytest.approx(0.0)
 	assert sad.sin(2) == pytest.approx(np.sin(2))
 
@@ -377,7 +377,7 @@ def test_cos():
 	assert f.der['x'] == pytest.approx(0.0)
 	#Test other attributes
 	assert next(iter(f.der)) == 'x'
-	#assert f.var == 'x' # TODO: change to dict
+	assert f.var == 'x'
 	assert f.val == pytest.approx(1.0)
 	assert sad.cos(2) == pytest.approx(np.cos(2))
 
@@ -388,7 +388,7 @@ def test_tan():
 	assert f.der['x'] == pytest.approx(1.0)
 	#Test other attributes
 	assert next(iter(f.der)) == 'x'
-	#assert f.var == 'x' # TODO: change to dict
+	assert f.var == 'x'
 	assert f.val == pytest.approx(0.0)
 	assert sad.tan(2) == pytest.approx(np.tan(2))
 
@@ -400,7 +400,7 @@ def test_arcsin():
 	assert f.der['x'] == pytest.approx((1-0.5**2)**(-1/2))
 	#Test other attributes
 	assert next(iter(f.der)) == 'x'
-	#assert f.var == 'x' # TODO: change to dict
+	assert f.var == 'x'
 	assert f.val == pytest.approx(np.arcsin(0.5))
 	assert sad.arcsin(0.5) == pytest.approx(np.arcsin(0.5))
 
@@ -413,7 +413,7 @@ def test_arccos():
 	assert f.der['x'] == pytest.approx(-(1-0.5**2)**(-1/2))
 	#Test other attributes
 	assert next(iter(f.der)) == 'x'
-	#assert f.var == 'x' # TODO: change to dict
+	assert f.var == 'x'
 	assert f.val == pytest.approx(np.arccos(0.5))
 	assert sad.arccos(0.5) == pytest.approx(np.arccos(0.5))
 
@@ -426,7 +426,7 @@ def test_arctan():
 	assert f.der['x'] == pytest.approx(0.8)
 	#Test other attributes
 	assert next(iter(f.der)) == 'x'
-	#assert f.var == 'x' # TODO: change to dict
+	assert f.var == 'x'
 	assert f.val == pytest.approx(np.arctan(0.5))
 	assert sad.arctan(2) == pytest.approx(np.arctan(2))
 
@@ -437,7 +437,7 @@ def test_exp():
 	assert f.der['x'] == pytest.approx(np.exp(2))
 	#Test other attributes
 	assert next(iter(f.der)) == 'x'
-	#assert f.var == 'x' # TODO: change to dict
+	assert f.var == 'x'
 	assert f.val == pytest.approx(np.exp(2))
 	assert sad.exp(2) == pytest.approx(np.exp(2))
 
@@ -448,7 +448,7 @@ def test_ln():
 	assert f.der['x'] == pytest.approx(0.5)
 	#Test other attributes
 	assert next(iter(f.der)) == 'x'
-	#assert f.var == 'x' # TODO: change to dict
+	assert f.var == 'x'
 	assert f.val == pytest.approx(math.log(2, math.e))
 	assert sad.log(2) == pytest.approx(math.log(2, math.e))
 
@@ -459,7 +459,7 @@ def test_log10():
 	assert f.der['x'] == pytest.approx(1/(100*math.log(10, math.e)))
 	#Test other attributes
 	assert next(iter(f.der)) == 'x'
-	#assert f.var == 'x' # TODO: change to dict
+	assert f.var == 'x'
 	assert f.val == pytest.approx(math.log(100, 10))
 	assert sad.log(2, 10) == pytest.approx(math.log(2, 10))
 
@@ -470,7 +470,7 @@ def test_sinh():
 	assert f.der['x'] == pytest.approx(np.cosh(0.5))
 	#Test other attributes
 	assert next(iter(f.der)) == 'x'
-	#assert f.var == 'x' # TODO: change to dict
+	assert f.var == 'x'
 	assert f.val == pytest.approx(np.sinh(0.5))
 	assert sad.sinh(2) == pytest.approx(np.sinh(2))
 
@@ -481,7 +481,7 @@ def test_cosh():
 	assert f.der['x'] == pytest.approx(np.sinh(0.5))
 	#Test other attributes
 	assert next(iter(f.der)) == 'x'
-	#assert f.var == 'x' # TODO: change to dict
+	assert f.var == 'x'
 	assert f.val == pytest.approx(np.cosh(0.5))
 	assert sad.cosh(2) == pytest.approx(np.cosh(2))
 
@@ -492,7 +492,7 @@ def test_tanh():
 	assert f.der['x'] == pytest.approx(2/(np.cosh(2*0.5)+1))
 	#Test other attributes
 	assert next(iter(f.der)) == 'x'
-	#assert f.var == 'x' # TODO: change to dict
+	assert f.var == 'x'
 	assert f.val == pytest.approx(np.tanh(0.5))
 	assert sad.tanh(0.5) == pytest.approx(np.tanh(0.5))
 
