@@ -285,6 +285,8 @@ def sinh(x):
 
     if (type(x).__name__) is 'AutoDiffVector':
         return _sinhV(x)
+    elif (type(x).__name__) is 'AutoDiffReverse':
+        return _sinhR(x)
 
 
     try:
@@ -321,6 +323,8 @@ def cosh(x):
     
     if (type(x).__name__) is 'AutoDiffVector':
         return _coshV(x)
+    elif (type(x).__name__) is 'AutoDiffReverse':
+        return _coshR(x)
 
     try:
         var = x.var
@@ -355,6 +359,8 @@ def tanh(x):
 
     if (type(x).__name__) is 'AutoDiffVector':
         return _tanhV(x)
+    elif (type(x).__name__) is 'AutoDiffReverse':
+        return _tanhR(x)
     
     try:
         var = x.var
