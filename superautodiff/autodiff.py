@@ -15,7 +15,7 @@ class AutoDiff():
     >>> x.var
     {"x"}
     >>> x.val
-    4
+    4.0
     >>> x.der
     Counter({'x': 1.0})
     """
