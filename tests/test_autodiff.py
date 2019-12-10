@@ -357,6 +357,7 @@ def test_rpow():
 	assert f.var == 'x'
 	assert f.val == pytest.approx(4.0)
 
+
 ### 7. Additional functions from NumPy
 
 # f(x) = sin(x); f(2*pi) = 0; f'(x) = cos(x); f'(2pi) = 1
@@ -497,7 +498,28 @@ def test_tanh():
 	assert sad.tanh(0.5) == pytest.approx(np.tanh(0.5))
 
 
-### 8. Equalities and inequalities
+### 8. additional functions
+
+# f(x) = x^0.5; f(4) = 2; f'(x) = 2x; f'(2) = 4
+def test_sqrt():
+	x1 = sad.AutoDiff('x', 4.0)
+	f = x1**0.5
+	assert f.der['x'] == pytest.approx(1/4)
+	#Test other attributes
+	assert next(iter(f.der)) == 'x'
+	assert f.var == 'x'
+	assert f.val == pytest.approx(2.0)
+
+def test_logistic():
+	x1 = sad.AutoDiff('x', 4.0)
+	f = 1/(1+sad.exp(-x1))
+	assert f.der['x'] == pytest.approx(np.exp(4)/(1 + np.exp(4))**2)
+	#Test other attributes
+	assert next(iter(f.der)) == 'x'
+	assert f.var == 'x'
+	assert f.val == pytest.approx(1/(1+np.exp(-4)))
+
+### 9. Equalities and inequalities
 
 def test_eq():
 	x1 = sad.AutoDiff('x', 1)*2

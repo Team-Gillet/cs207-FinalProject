@@ -127,6 +127,12 @@ def test_reverse_log():
 	f = sad.log(x1)
 	assert f.der['x1'] ==  pytest.approx(1 / (4 * math.log(math.e)))
 
+def test_reverse_sqrt():
+	x1 = sad.AutoDiffReverse(4, 'x1')
+	
+	f = sad.sqrt(x1)
+	assert f.der['x1'] ==  pytest.approx(1/4)
+
 
 
 
