@@ -130,6 +130,7 @@ class AutoDiffReverse():
         return forward_pass
     
     def clear_table(self):
+        forward_pass_index = 0
         forward_pass = pd.DataFrame(columns=['Node', 'd1', 'd1value', 'd2', 'd2value'])
     
 # Reverse Pass  
