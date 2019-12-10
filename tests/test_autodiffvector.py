@@ -6,10 +6,52 @@ import math
 
 sys.path.append('..')
 import superautodiff as sad
-#from superautodiff.autodiff import AutoDiff
-#from superautodiff.functions import *
 
 
+## Helper function for running the tests
+def do_vector_tests(vec1, vec1_other, vec2, vec2_other, der, der_other, val, val_other):
+    # Test AutoDiffVector with constant
+    for key1 in vec1.objects.keys():
+        #get the key of the .der in the current ad object
+        key2 = next(iter(vec1.objects[key1].der))
+        assert vec1.objects[key1].der[key2] == pytest.approx(der)
+        assert vec1.objects[key1].val == pytest.approx(val)
+    # Test AutoDiffVector with other AutoDiff object
+    for key1 in vec1_other.objects.keys():
+        #get the key of the .der in the current ad object
+        key2 = next(iter(vec1_other.objects[key1].der))
+        assert vec1_other.objects[key1].der[key2] == pytest.approx(der_other)
+        assert vec1_other.objects[key1].val == pytest.approx(val_other)
+    # Test vectorize with constant
+    for key1 in vec2.objects.keys():
+        #get the key of the .der in the current ad object
+        key2 = next(iter(vec2.objects[key1].der))
+        assert vec2.objects[key1].der[key2] == pytest.approx(der)
+        assert vec2.objects[key1].val == pytest.approx(val)
+    # Test vectorize with other AutoDiff object
+    for key1 in vec2_other.objects.keys():
+        #get the key of the .der in the current ad object
+        key2 = next(iter(vec2_other.objects[key1].der))
+        assert vec2_other.objects[key1].der[key2] == pytest.approx(der_other)
+        assert vec2_other.objects[key1].val == pytest.approx(val_other)
+
+# Same helper function but without other autodiff (e.g. for testing additive inverse)
+def do_vector_tests_no_other(vec1, vec2, der, val):
+    # Test AutoDiffVector
+    for key1 in vec1.objects.keys():
+        #get the key of the .der in the current ad object
+        key2 = next(iter(vec1.objects[key1].der))
+        assert vec1.objects[key1].der[key2] == pytest.approx(der)
+        assert vec1.objects[key1].val == pytest.approx(val)
+    # Test vectorize
+    for key1 in vec2.objects.keys():
+        #get the key of the .der in the current ad object
+        key2 = next(iter(vec2.objects[key1].der))
+        assert vec2.objects[key1].der[key2] == pytest.approx(der)
+        assert vec2.objects[key1].val == pytest.approx(val)
+
+
+### Test incorrect inputs
 
 def test_vector_input_no_args():
     with pytest.raises(TypeError):
@@ -25,54 +67,10 @@ def test_vector_inputlist_not_autodiff():
         y = 'asd'
         x1 = sad.AutoDiffVector([x, y])
 
-
 def test_vector_inputlist_duplicate_var():
-    #TODO: after list inputs implemented
     with pytest.raises(ValueError):
         x1 = sad.AutoDiffVector(['x','x'])
 
-
-#### Test intended behavior, elementary operations
-
-## Helper function for running the tests
-def do_vector_tests(vec1, vec1_other, vec2, vec2_other, der, der_other, val, val_other):
-    for key1 in vec1.objects.keys():
-        #get the key of the .der in the current ad object
-        key2 = next(iter(vec1.objects[key1].der))
-        assert vec1.objects[key1].der[key2] == pytest.approx(der)
-        assert vec1.objects[key1].val == pytest.approx(val)
-    # test AutoDiffVector with other AutoDiff object
-    for key1 in vec1_other.objects.keys():
-        #get the key of the .der in the current ad object
-        key2 = next(iter(vec1_other.objects[key1].der))
-        assert vec1_other.objects[key1].der[key2] == pytest.approx(der_other)
-        assert vec1_other.objects[key1].val == pytest.approx(val_other)
-    # test vectorize 
-    for key1 in vec2.objects.keys():
-        #get the key of the .der in the current ad object
-        key2 = next(iter(vec2.objects[key1].der))
-        assert vec2.objects[key1].der[key2] == pytest.approx(der)
-        assert vec2.objects[key1].val == pytest.approx(val)
-    # test vectorize with other AutoDiff object
-    for key1 in vec2_other.objects.keys():
-        #get the key of the .der in the current ad object
-        key2 = next(iter(vec2_other.objects[key1].der))
-        assert vec2_other.objects[key1].der[key2] == pytest.approx(der_other)
-        assert vec2_other.objects[key1].val == pytest.approx(val_other)
-
-# same helper function but without other (e.g. for testing additive inverse)
-def do_vector_tests_no_other(vec1, vec2, der, val):
-    for key1 in vec1.objects.keys():
-        #get the key of the .der in the current ad object
-        key2 = next(iter(vec1.objects[key1].der))
-        assert vec1.objects[key1].der[key2] == pytest.approx(der)
-        assert vec1.objects[key1].val == pytest.approx(val)
-    # test vectorize 
-    for key1 in vec2.objects.keys():
-        #get the key of the .der in the current ad object
-        key2 = next(iter(vec2.objects[key1].der))
-        assert vec2.objects[key1].der[key2] == pytest.approx(der)
-        assert vec2.objects[key1].val == pytest.approx(val)
 
 ### 1. Addition
 
@@ -305,7 +303,6 @@ def test_vector_cos():
     with pytest.raises(AttributeError):
         x1 = sad.AutoDiff('x', 1)
         sad._cosV(x1)
-    #assert sad._cosV(x1) == pytest.approx(sad.cos(x1))
 
 def test_vector_tan():
     f1 = sad.AutoDiff('x', 2)
