@@ -479,7 +479,7 @@ def test_sinh():
 def test_cosh():
 	x1 = sad.AutoDiff('x', 0.5)
 	f = sad.cosh(x1)
-	assert f.der['x'] == pytest.approx(np.sinh(0.5))
+	assert f.der['x'] == pytest.approx(-np.sinh(0.5))
 	#Test other attributes
 	assert next(iter(f.der)) == 'x'
 	assert f.var == 'x'
