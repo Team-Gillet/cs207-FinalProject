@@ -32,7 +32,7 @@ def _sinV(x):
 
 def _sinR(x):
     der = {x.var : np.cos(x.val)}
-    return AutoDiff(np.sin(x.val), None, der)
+    return sad.AutoDiffReverse(np.sin(x.val), None, der)
 
 def cos(x):
 
@@ -64,7 +64,7 @@ def _cosV(x):
 
 def _cosR(x):
     der = {x.var : -np.sin(x.val)}
-    return AutoDiff(np.cos(x.val), None, der)
+    return sad.AutoDiffReverse(np.cos(x.val), None, der)
 
 def tan(x):
 
@@ -96,7 +96,7 @@ def _tanV(x):
 
 def _tanR(x):
     der = {x.var : 1 / (np.cos(x.val) ** 2)}
-    return AutoDiff(np.tan(x.val), None, der)
+    return sad.AutoDiffReverse(np.tan(x.val), None, der)
 
 def arcsin(x):
 
@@ -128,7 +128,7 @@ def _arcsinV(x):
 
 def _arcsinR(x):
     der = {x.var : 1 / np.sqrt(1 - x.val ** 2)}
-    return AutoDiff(np.arcsin(x.val), None, der)
+    return sad.AutoDiffReverse(np.arcsin(x.val), None, der)
 
 def arccos(x):
 
@@ -161,7 +161,7 @@ def _arccosV(x):
 
 def _arccosR(x):
     der = {x.var : 1 / -np.sqrt(1 - x.val ** 2)}
-    return AutoDiff(np.arccos(x.val), None, der)
+    return sad.AutoDiffReverse(np.arccos(x.val), None, der)
 
 def arctan(x):
     
@@ -195,7 +195,7 @@ def _arctanV(x):
 
 def _arctanR(x):
     der = {x.var : 1 / (1 + x.val * x.val)}
-    return AutoDiff(np.arctan(x.val), None, der)
+    return sad.AutoDiffReverse(np.arctan(x.val), None, der)
 
 def exp(x):
     
@@ -227,7 +227,7 @@ def _expV(x):
 
 def _expR(x):
     der = {x.var : np.exp(x.val)}
-    return AutoDiff(np.exp(x.val), None, der)
+    return sad.AutoDiffReverse(np.exp(x.val), None, der)
 
 def log(x, base=math.e):
 
@@ -261,7 +261,7 @@ def _logV(x, base=math.e):
 
 def _logR(x, base=math.e):
     der = {x.var : 1 / (x.val * math.log(base))}
-    return AutoDiff(math.log(x.val, base), None, der)
+    return sad.AutoDiffReverse(math.log(x.val, base), None, der)
 
 def sinh(x):
 

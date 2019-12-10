@@ -79,6 +79,14 @@ def test_reverse_div():
 	assert f.der['x1'] ==  pytest.approx(1/3)
 	assert f.der['x2'] ==  pytest.approx(-4/(3**2))
 
+def test_reverse_sin():
+	x1 = sad.AutoDiffReverse(4, 'x1')
+	
+	f = sad.sin(x1)
+	assert f.der['x1'] ==  pytest.approx(np.cos(4))
+
+
+
 
 
 
