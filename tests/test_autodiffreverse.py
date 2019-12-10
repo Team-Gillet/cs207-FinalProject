@@ -14,16 +14,13 @@ def test_reverse_add():
 	
 	f = x1 + 1
 	assert f.der['x1'] ==  pytest.approx(1.0)
-	#assert f.val == pytest.approx(5.0)
 
 	f = 1 + x1
 	assert f.der['x1'] ==  pytest.approx(1.0)
-	#assert f.val == pytest.approx(5.0)
 
 	f = x1 + x2
 	assert f.der['x1'] ==  pytest.approx(1.0)
 	assert f.der['x2'] ==  pytest.approx(1.0)
-	#assert f.val == pytest.approx(7.0)
 
 def test_reverse_sub():
 	x1 = sad.AutoDiffReverse(4, 'x1')
@@ -31,16 +28,13 @@ def test_reverse_sub():
 	
 	f = x1 - 1
 	assert f.der['x1'] ==  pytest.approx(1.0)
-	#assert f.val == pytest.approx(3.0)
 
 	f = 1 - x1
 	assert f.der['x1'] ==  pytest.approx(-1.0)
-	#assert f.val == pytest.approx(-3.0)
 
 	f = x1 - x2
 	assert f.der['x1'] ==  pytest.approx(1.0)
 	assert f.der['x2'] ==  pytest.approx(-1.0)
-	#assert f.val == pytest.approx(1.0)
 
 def test_reverse_mul():
 	x1 = sad.AutoDiffReverse(4, 'x1')
@@ -48,38 +42,28 @@ def test_reverse_mul():
 	
 	f = x1 * 2
 	assert f.der['x1'] ==  pytest.approx(2.0)
-	#assert f.val == pytest.approx(8.0)
 
 	f = 2 * x1
 	assert f.der['x1'] ==  pytest.approx(2.0)
-	#assert f.val == pytest.approx(8.0)
 
 	f = x1 * x2
 	assert f.der['x1'] ==  pytest.approx(3.0)
 	assert f.der['x2'] ==  pytest.approx(4.0)
-	#assert f.val == pytest.approx(12.0)
-
 
 def test_reverse_neg():
 	x1 = sad.AutoDiffReverse(4, 'x1')
 	
 	f = -x1
 	assert f.der['x1'] ==  pytest.approx(-1.0)
-	#assert f.val == pytest.approx(-4.0)
-
 
 def test_reverse_pow():
 	x1 = sad.AutoDiffReverse(4, 'x1')
 	
 	f = x1 ** 2
 	assert f.der['x1'] ==  pytest.approx(8.0)
-	#assert f.val == pytest.approx(16)
 
 	f = 2 ** x1
 	assert f.der['x1'] ==  pytest.approx(2.0**4*np.log(2))
-	#assert f.val == pytest.approx(2**4)
-
-
 
 def test_reverse_div():
 	x1 = sad.AutoDiffReverse(4, 'x1')
@@ -87,22 +71,15 @@ def test_reverse_div():
 	
 	f = x1 / 2
 	assert f.der['x1'] ==  pytest.approx(0.5)
-	#assert f.val == pytest.approx(2.0)
 
 	f = 2 / x1
 	assert f.der['x1'] ==  pytest.approx(-2.0/(4**2))
-	#assert f.val == pytest.approx(2/4)
 
 	f = x1 / x2
 	assert f.der['x1'] ==  pytest.approx(1/3)
 	assert f.der['x2'] ==  pytest.approx(-4/(3**2))
-	#assert f.val == pytest.approx(4/3)
 
-if __name__ == '__main__':
-	x1 = sad.AutoDiffReverse(4, 'x1')
-	x2 = sad.AutoDiffReverse(3, 'x2')
-	f = x1 / x2
-	print(sad.forward_pass)
+
 
 
 
