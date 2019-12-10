@@ -14,7 +14,7 @@ class AutoDiff():
     ========
     >>> x = AutoDiff("x",4)
     >>> x.var
-    {"x"}
+    'x'
     >>> x.val
     4
     >>> x.der

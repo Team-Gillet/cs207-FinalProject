@@ -16,13 +16,13 @@ class AutoDiffReverse():
 
     EXAMPLES
     ========
-    >>> x = AutoDiffReverse("x",4)
+    >>> x = AutoDiffReverse(4, 'x')
     >>> x.var
-    {"x"}
+    'x'
     >>> x.val
-    4
+    4.0
     >>> x.der
-    Counter({'x': 1.0})
+    {'x': 1}
     """
 
     def __init__(self, val, var=None, der=1.0):
