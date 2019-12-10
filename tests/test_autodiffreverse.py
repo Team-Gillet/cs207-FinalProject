@@ -96,6 +96,25 @@ def test_reverse_tan():
 	
 	f = sad.tan(x1)
 	assert f.der['x1'] ==  pytest.approx(1 / (np.cos(4) ** 2))
+	
+def test_reverse_sinh():
+	x1 = sad.AutoDiffReverse(4, 'x1')
+	
+	f = sad.sinh(x1)
+	assert f.der['x1'] ==  pytest.approx(np.cosh(4))
+
+def test_reverse_cosh():
+	x1 = sad.AutoDiffReverse(4, 'x1')
+	
+	f = sad.cosh(x1)
+	assert f.der['x1'] ==  pytest.approx(-np.sinh(4))
+
+
+def test_reverse_tanh():
+	x1 = sad.AutoDiffReverse(4, 'x1')
+	f = sad.tanh(x1)
+	assert f.der['x1'] ==  pytest.approx(1 / (np.cosh(4) ** 2))
+
 
 def test_reverse_arcsin():
 	x1 = sad.AutoDiffReverse(0.5, 'x1')
