@@ -45,7 +45,7 @@ class AutoDiff():
         if type(other).__name__ is 'AutoDiffVector':
             return other.__add__(self)
         
-        try:  # ask forgiveness
+        try:
             total = Counter()
             total.update(self.der)
             total.update(other.der)
@@ -75,9 +75,6 @@ class AutoDiff():
 
         except AttributeError:
 
-            # if type(other).__name__ is not 'AutoDiff':
-            #     var = self.var + " - " + str(round_3sf(other))
-
             return AutoDiff(self.var, self.val - other, self.der)
 
     def __rsub__(self, other):
@@ -98,17 +95,9 @@ class AutoDiff():
             total.update(der1)
             total.update(der2)
 
-            # if type(other).__name__ is 'AutoDiff':
-            #     var = self.var + " * " + other.var
-            # else:
-            #     var = self.var + " * " + str(round_3sf(other))
-
             return AutoDiff(self.var, self.val * other.val, total)
 
         except AttributeError:
-
-            # if type(other).__name__ is not 'AutoDiff':
-            #     var = self.var + " * " + str(round_3sf(other))
 
             der1 = {k: other * v for k, v in self.der.items()}
             der1 = Counter(der1)
@@ -124,7 +113,6 @@ class AutoDiff():
         """Returns the negation of an AutoDiff object"""
         neg = {k: -1 * v for k, v in self.der.items()}
         neg = Counter(neg)
-        # self.var = "-(" + self.var + ")"
         return AutoDiff(self.var, -self.val, neg)
 
     def reciprocal(self):
@@ -132,7 +120,6 @@ class AutoDiff():
 
         value = -1 / (self.val * self.val)
         der = {k: value * v for k, v in self.der.items()}
-        self.var = "(" + self.var + ")**(-1)"
         return AutoDiff(self.var, 1 / self.val, der)
 
     def __truediv__(self,other):
@@ -146,21 +133,18 @@ class AutoDiff():
 
     def __rtruediv__(self, other): 
         """Performs division of an AutoDiff object with scalars and other AutoDiff objects"""
-        #x._rtruediv_(other) <==> other / x
         return other*self.reciprocal()
 
     def __pow__(self, power):
         """Performs exponentiation of an AutoDiff object with scalars values e.g x**3 """
         value = power * (self.val) ** (power - 1)
         der = {k: value * v for k, v in self.der.items()}
-        # self.var = self.var + " ** " + str(round_3sf(power))
         return AutoDiff(self.var, self.val ** power, der)
 
     def __rpow__(self,power):
         """Performs exponentiation of an AutoDiff object with scalars values e.g. 3**x"""
         value =  power ** self.val
         der = {k: value * v * math.log(power) for k, v in self.der.items()}
-        self.var = str(round_3sf(power)) + " ** " + self.var
         return AutoDiff(self.var, value, der)
 
     def __eq__(self, other):
@@ -231,7 +215,7 @@ class AutoDiffVector():
         for i in range(len(self.objects)):
             new_object = self.objects[list(self.objects.keys())[i]] + other
             objects.append(new_object)
-            
+
         return AutoDiffVector(objects)
     
     def __radd__(self, other):
@@ -240,9 +224,8 @@ class AutoDiffVector():
         for i in range(len(self.objects)):
             new_object = self.objects[list(self.objects.keys())[i]] + other
             objects.append(new_object)
-            
+
         return AutoDiffVector(objects)
-        #return self.__add__(other)
 
     def __sub__(self, other):
         """Performs subtraction of an AutoDiffVector object and either a scalar or an AutoDiff object"""
@@ -262,7 +245,6 @@ class AutoDiffVector():
             objects.append(new_object)
             
         return AutoDiffVector(objects)
-        #return self.__sub__(other)
 
     def __mul__(self, other):
         """Performs multiplication of an AutoDiffVector object and either a scalar or an AutoDiff object"""
@@ -347,7 +329,7 @@ def vectorize(var, val, der=1.0):
     if der == 1.0:
         der = [1.0] * len(var)
         
-    # Ensure that the variable names ar enot repeated
+    # Ensure that the variable names are not repeated
     if len(var) != len(set(var)):
         raise ValueError("Variable names cannot be the same")
 
@@ -358,7 +340,6 @@ def vectorize(var, val, der=1.0):
         objects.append(AutoDiff(var[i], val[i], der[i]))
     
     return AutoDiffVector(objects)
-
 
 # Helper function required for variable naming
 def round_3sf(x, sig=3):

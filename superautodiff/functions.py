@@ -8,6 +8,8 @@ def sin(x):
 
     if (type(x).__name__) is 'AutoDiffVector':
         return _sinV(x)
+    elif (type(x).__name__) is 'AutoDiffReverse':
+        return _sinR(x)
 
     try:
         var = x.var
@@ -32,12 +34,17 @@ def _sinV(x):
         print("Warning: For AutoDiff objects, please use the corresponding mathematical function: sin(AD) instead of sinV(AD)")
         return np.sin(x)
 
+def _sinR(x):
+    der = {x.var : np.cos(x.val)}
+    return sad.AutoDiffReverse(np.sin(x.val), None, der)
+
 def cos(x):
     """Returns the cosine of the AutoDiff or AutoDiffVector or AutoDiffReverse object"""
 
     if (type(x).__name__) is 'AutoDiffVector':
         return _cosV(x)
-
+    elif (type(x).__name__) is 'AutoDiffReverse':
+        return _cosR(x)
 
     try:
         var = x.var
@@ -62,11 +69,17 @@ def _cosV(x):
         print("Warning: For AutoDiff objects, please use the corresponding mathematical function: cos(AD) instead of cosV(AD)")
         return np.cos(x)
 
+def _cosR(x):
+    der = {x.var : -np.sin(x.val)}
+    return sad.AutoDiffReverse(np.cos(x.val), None, der)
+
 def tan(x):
     """Returns the tangent of the AutoDiff or AutoDiffVector or AutoDiffReverse object"""
 
     if (type(x).__name__) is 'AutoDiffVector':
         return _tanV(x)
+    elif (type(x).__name__) is 'AutoDiffReverse':
+        return _tanR(x)
 
     try:
         var = x.var
@@ -91,12 +104,17 @@ def _tanV(x):
         print("Warning: For AutoDiff objects, please use the corresponding mathematical function: tan(AD) instead of tanV(AD)")
         return np.tan(x)
 
+def _tanR(x):
+    der = {x.var : 1 / (np.cos(x.val) ** 2)}
+    return sad.AutoDiffReverse(np.tan(x.val), None, der)
 
 def arcsin(x):
     """Returns the arcsine of the AutoDiff or AutoDiffVector or AutoDiffReverse object"""
 
     if (type(x).__name__) is 'AutoDiffVector':
         return _arcsinV(x)
+    elif (type(x).__name__) is 'AutoDiffReverse':
+        return _arcsinR(x)
 
     try:
         var = x.var
@@ -121,11 +139,17 @@ def _arcsinV(x):
         print("Warning: For AutoDiff objects, please use the corresponding mathematical function: arcsin(AD) instead of arcsinV(AD)")
         return np.arcsin(x)
 
+def _arcsinR(x):
+    der = {x.var : 1 / np.sqrt(1 - x.val ** 2)}
+    return sad.AutoDiffReverse(np.arcsin(x.val), None, der)
+
 def arccos(x):
     """Returns the arccos of the AutoDiff or AutoDiffVector or AutoDiffReverse object"""
 
     if (type(x).__name__) is 'AutoDiffVector':
         return _arccosV(x)
+    elif (type(x).__name__) is 'AutoDiffReverse':
+        return _arccosR(x)
 
     try:
         var = x.var
@@ -151,12 +175,17 @@ def _arccosV(x):
         print("Warning: For AutoDiff objects, please use the corresponding mathematical function: arccos(AD) instead of arccosV(AD)")
         return np.arccos(x)
 
+def _arccosR(x):
+    der = {x.var : 1 / -np.sqrt(1 - x.val ** 2)}
+    return sad.AutoDiffReverse(np.arccos(x.val), None, der)
 
 def arctan(x):
     """Returns the arctan of the AutoDiff or AutoDiffVector or AutoDiffReverse object"""
     
     if (type(x).__name__) is 'AutoDiffVector':
         return _arctanV(x)
+    elif (type(x).__name__) is 'AutoDiffReverse':
+        return _arctanR(x)
 
     try:
         var = x.var
@@ -167,6 +196,7 @@ def arctan(x):
     except AttributeError:
         # print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: arctanV(ADV) instead of arctan(ADV)")
         return np.arctan(x)
+
 
 def _arctanV(x):
     """Returns the arctan of the AutoDiffVector object"""
@@ -182,12 +212,17 @@ def _arctanV(x):
         print("Warning: For AutoDiff objects, please use the corresponding mathematical function: arctan(AD) instead of arctanV(AD)")
         return np.arctan(x)
 
+def _arctanR(x):
+    der = {x.var : 1 / (1 + x.val * x.val)}
+    return sad.AutoDiffReverse(np.arctan(x.val), None, der)
 
 def exp(x):
     """Returns the exp of the AutoDiff or AutoDiffVector or AutoDiffReverse object"""
     
     if (type(x).__name__) is 'AutoDiffVector':
         return _expV(x)
+    elif (type(x).__name__) is 'AutoDiffReverse':
+        return _expR(x)
 
     try:
         var = x.var
@@ -213,11 +248,17 @@ def _expV(x):
         print("Warning: For AutoDiff objects, please use the corresponding mathematical function: exp(AD) instead of expV(AD)")
         return np.exp(x)
 
+def _expR(x):
+    der = {x.var : np.exp(x.val)}
+    return sad.AutoDiffReverse(np.exp(x.val), None, der)
+
 def log(x, base=math.e):
     """Returns the log of the AutoDiff or AutoDiffVector or AutoDiffReverse object"""
 
     if (type(x).__name__) is 'AutoDiffVector':
         return _logV(x, base=base)
+    elif (type(x).__name__) is 'AutoDiffReverse':
+        return _logR(x)
 
     try:
         var = x.var
@@ -244,6 +285,10 @@ def _logV(x, base=math.e):
     except AttributeError:
         print("Warning: For AutoDiff objects, please use the corresponding mathematical function: log(AD) instead of logV(AD)")
         return np.log(x)
+
+def _logR(x, base=math.e):
+    der = {x.var : 1 / (x.val * math.log(base))}
+    return sad.AutoDiffReverse(math.log(x.val, base), None, der)
 
 def sinh(x):
     """Returns the sine_h of the AutoDiff or AutoDiffVector or AutoDiffReverse object"""
@@ -329,17 +374,6 @@ def tanh(x):
     except AttributeError:
         # print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: tanhV(ADV) instead of tanh(ADV)")
         return np.tanh(x)
-    
-def sqrt(x):
-    """Returns the square root of the AutoDiff or AutoDiffVector or AutoDiffReverse object"""
-  try:
-    return x**0.5
-  except:
-    return np.sqrt(x)
-
-def logistic(x):
-    """Returns the AutoDiff or AutoDiffVector or AutoDiffReverse object passed through a sigmoid transformation"""
-  return 1/(1+exp(-x))
 
 def _tanhV(x):
     """Returns the tan_h of the AutoDiffVector object"""
@@ -353,3 +387,15 @@ def _tanhV(x):
     except AttributeError:
         print("Warning: For AutoDiff objects, please use the corresponding mathematical function: tanh(AD) instead of tanhV(AD)")
         return np.tanh(x)
+
+      
+def sqrt(x):
+  """Returns the square root of the AutoDiff or AutoDiffVector or AutoDiffReverse object"""
+  try:
+    return x**0.5
+  except:
+    return np.sqrt(x)
+
+def logistic(x):
+  """Returns the AutoDiff or AutoDiffVector or AutoDiffReverse object passed through a sigmoid transformation"""
+  return 1/(1+exp(-x))
