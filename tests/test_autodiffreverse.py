@@ -85,7 +85,53 @@ def test_reverse_sin():
 	f = sad.sin(x1)
 	assert f.der['x1'] ==  pytest.approx(np.cos(4))
 
+def test_reverse_cos():
+	x1 = sad.AutoDiffReverse(4, 'x1')
+	
+	f = sad.cos(x1)
+	assert f.der['x1'] ==  pytest.approx(-np.sin(4))
 
+def test_reverse_tan():
+	x1 = sad.AutoDiffReverse(4, 'x1')
+	
+	f = sad.tan(x1)
+	assert f.der['x1'] ==  pytest.approx(1 / (np.cos(4) ** 2))
+
+def test_reverse_arcsin():
+	x1 = sad.AutoDiffReverse(0.5, 'x1')
+	
+	f = sad.arcsin(x1)
+	assert f.der['x1'] ==  pytest.approx(1 / np.sqrt(1 - 0.5 ** 2))
+
+def test_reverse_arccos():
+	x1 = sad.AutoDiffReverse(0.5, 'x1')
+	
+	f = sad.arccos(x1)
+	assert f.der['x1'] ==  pytest.approx(1 / -np.sqrt(1 - 0.5 ** 2))
+
+def test_reverse_arctan():
+	x1 = sad.AutoDiffReverse(4, 'x1')
+	
+	f = sad.arctan(x1)
+	assert f.der['x1'] ==  pytest.approx(1 / (1 + 4 * 4))
+
+def test_reverse_exp():
+	x1 = sad.AutoDiffReverse(4, 'x1')
+	
+	f = sad.exp(x1)
+	assert f.der['x1'] ==  pytest.approx(np.exp(4))
+
+def test_reverse_log():
+	x1 = sad.AutoDiffReverse(4, 'x1')
+	
+	f = sad.log(x1)
+	assert f.der['x1'] ==  pytest.approx(1 / (4 * math.log(math.e)))
+
+def test_reverse_sqrt():
+	x1 = sad.AutoDiffReverse(4, 'x1')
+	
+	f = sad.sqrt(x1)
+	assert f.der['x1'] ==  pytest.approx(1/4)
 
 
 

@@ -338,15 +338,6 @@ def tanh(x):
     except AttributeError:
         # print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: tanhV(ADV) instead of tanh(ADV)")
         return np.tanh(x)
-    
-def sqrt(x):
-  try:
-    return x**0.5
-  except:
-    return np.sqrt(x)
-
-def logistic(x):
-  return 1/(1+exp(-x))
 
 def _tanhV(x):
     try:
@@ -359,3 +350,13 @@ def _tanhV(x):
     except AttributeError:
         print("Warning: For AutoDiff objects, please use the corresponding mathematical function: tanh(AD) instead of tanhV(AD)")
         return np.tanh(x)
+
+    
+def sqrt(x):
+  try:
+    return x**0.5
+  except:
+    return np.sqrt(x)
+
+def logistic(x):
+  return 1/(1+exp(-x))
