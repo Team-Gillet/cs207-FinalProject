@@ -1,8 +1,10 @@
 import numpy as np
 import math
 import superautodiff as sad
+from collections import Counter
 
 def sin(x):
+    """Returns the sine of the AutoDiff or AutoDiffVector or AutoDiffReverse object"""
 
     if (type(x).__name__) is 'AutoDiffVector':
         return _sinV(x)
@@ -13,12 +15,14 @@ def sin(x):
         var = x.var
         val = np.sin(x.val)
         der = {k: np.cos(x.val) * v for k, v in x.der.items()}
+        der = Counter(der)
         return sad.AutoDiff(var, val, der)
     except AttributeError:
         # print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: sinV(ADV) instead of sin(ADV)")
         return np.sin(x)
 
 def _sinV(x):
+    """Returns the sine of the AutoDiffVector object"""
     try:
         objects = []
         for i in range(len(x.objects)):
@@ -35,6 +39,7 @@ def _sinR(x):
     return sad.AutoDiffReverse(np.sin(x.val), None, der)
 
 def cos(x):
+    """Returns the cosine of the AutoDiff or AutoDiffVector or AutoDiffReverse object"""
 
     if (type(x).__name__) is 'AutoDiffVector':
         return _cosV(x)
@@ -45,12 +50,14 @@ def cos(x):
         var = x.var
         val = np.cos(x.val)
         der = {k: -np.sin(x.val) * v for k, v in x.der.items()}
+        der = Counter(der)
         return sad.AutoDiff(var, val, der)
     except AttributeError:
         # print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: cosV(ADV) instead of cos(ADV)")
         return np.cos(x)
 
 def _cosV(x):
+    """Returns the cosine of the AutoDiffVector object"""
     try:
         objects = []
         for i in range(len(x.objects)):
@@ -67,6 +74,7 @@ def _cosR(x):
     return sad.AutoDiffReverse(np.cos(x.val), None, der)
 
 def tan(x):
+    """Returns the tangent of the AutoDiff or AutoDiffVector or AutoDiffReverse object"""
 
     if (type(x).__name__) is 'AutoDiffVector':
         return _tanV(x)
@@ -77,12 +85,14 @@ def tan(x):
         var = x.var
         val = np.tan(x.val)
         der = {k: (1 / (np.cos(x.val) ** 2)) * v for k, v in x.der.items()}
+        der = Counter(der)
         return sad.AutoDiff(var, val, der)
     except AttributeError:
         # print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: tanV(ADV) instead of tan(ADV)")
         return np.tan(x)
 
 def _tanV(x):
+    """Returns the tangent of the AutoDiffVectorobject"""
     try:
         objects = []
         for i in range(len(x.objects)):
@@ -99,6 +109,7 @@ def _tanR(x):
     return sad.AutoDiffReverse(np.tan(x.val), None, der)
 
 def arcsin(x):
+    """Returns the arcsine of the AutoDiff or AutoDiffVector or AutoDiffReverse object"""
 
     if (type(x).__name__) is 'AutoDiffVector':
         return _arcsinV(x)
@@ -109,12 +120,14 @@ def arcsin(x):
         var = x.var
         val = np.arcsin(x.val)
         der = {k: (1 / np.sqrt(1 - x.val ** 2)) * v for k, v in x.der.items()}
+        der = Counter(der)
         return sad.AutoDiff(var, val, der)
     except AttributeError:
         # print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: arcsinV(ADV) instead of arcsin(ADV)")
         return np.arcsin(x)
 
 def _arcsinV(x):
+    """Returns the arcsine of the AutoDiffVector object"""
     try:
         objects = []
         for i in range(len(x.objects)):
@@ -131,6 +144,7 @@ def _arcsinR(x):
     return sad.AutoDiffReverse(np.arcsin(x.val), None, der)
 
 def arccos(x):
+    """Returns the arccos of the AutoDiff or AutoDiffVector or AutoDiffReverse object"""
 
     if (type(x).__name__) is 'AutoDiffVector':
         return _arccosV(x)
@@ -141,6 +155,7 @@ def arccos(x):
         var = x.var
         val = np.arccos(x.val)
         der = {k: (1 / -np.sqrt(1 - x.val ** 2)) * v for k, v in x.der.items()}
+        der = Counter(der)
         return sad.AutoDiff(var, val, der)
     except AttributeError:
         # print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: arccosV(ADV) instead of arccos(ADV)")
@@ -148,6 +163,7 @@ def arccos(x):
 
 
 def _arccosV(x):
+    """Returns the arccos of the AutoDiffVector object"""
     try:
         objects = []
         for i in range(len(x.objects)):
@@ -164,6 +180,7 @@ def _arccosR(x):
     return sad.AutoDiffReverse(np.arccos(x.val), None, der)
 
 def arctan(x):
+    """Returns the arctan of the AutoDiff or AutoDiffVector or AutoDiffReverse object"""
     
     if (type(x).__name__) is 'AutoDiffVector':
         return _arctanV(x)
@@ -174,6 +191,7 @@ def arctan(x):
         var = x.var
         val = np.arctan(x.val)
         der = {k: (1 / (1 + x.val * x.val)) * v for k, v in x.der.items()}
+        der = Counter(der)
         return sad.AutoDiff(var, val, der)
     except AttributeError:
         # print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: arctanV(ADV) instead of arctan(ADV)")
@@ -181,6 +199,7 @@ def arctan(x):
 
 
 def _arctanV(x):
+    """Returns the arctan of the AutoDiffVector object"""
 
     try:
         objects = []
@@ -198,6 +217,7 @@ def _arctanR(x):
     return sad.AutoDiffReverse(np.arctan(x.val), None, der)
 
 def exp(x):
+    """Returns the exp of the AutoDiff or AutoDiffVector or AutoDiffReverse object"""
     
     if (type(x).__name__) is 'AutoDiffVector':
         return _expV(x)
@@ -208,12 +228,15 @@ def exp(x):
         var = x.var
         val = np.exp(x.val)
         der = {k: val * v for k, v in x.der.items()}
+        der = Counter(der)
         return sad.AutoDiff(var, val, der)
     except AttributeError:
         # print("Warning: For AutoDiffVector objects, please use the corresponding mathematical function: expV(ADV) instead of exp(ADV)")
         return np.exp(x)
 
 def _expV(x):
+    """Returns the exp of the AutoDiffVector object"""
+
     try:
         objects = []
         for i in range(len(x.objects)):
@@ -230,6 +253,7 @@ def _expR(x):
     return sad.AutoDiffReverse(np.exp(x.val), None, der)
 
 def log(x, base=math.e):
+    """Returns the log of the AutoDiff or AutoDiffVector or AutoDiffReverse object"""
 
     if (type(x).__name__) is 'AutoDiffVector':
         return _logV(x, base=base)
@@ -240,6 +264,7 @@ def log(x, base=math.e):
         var = x.var
         val = math.log(x.val, base)
         der = {k: (1 / (x.val * math.log(base))) * v for k, v in x.der.items()}
+        der = Counter(der)
         return sad.AutoDiff(var, val, der)
     except ValueError:
         print("Invalid value for mathematical function")
@@ -248,6 +273,8 @@ def log(x, base=math.e):
         return math.log(x, base)
 
 def _logV(x, base=math.e):
+    """Returns the log of the AutoDiffVector object"""
+
     try:
         objects = []
         for i in range(len(x.objects)):
@@ -264,6 +291,7 @@ def _logR(x, base=math.e):
     return sad.AutoDiffReverse(math.log(x.val, base), None, der)
 
 def sinh(x):
+    """Returns the sine_h of the AutoDiff or AutoDiffVector or AutoDiffReverse object"""
 
     if (type(x).__name__) is 'AutoDiffVector':
         return _sinhV(x)
@@ -273,6 +301,7 @@ def sinh(x):
         var = x.var
         val = math.sinh(x.val)
         der = {k: math.cosh(x.val) * v for k, v in x.der.items()}
+        der = Counter(der)
         return sad.AutoDiff(var, val, der)
     except ValueError:
         print("Invalid value for mathematical function")
@@ -282,6 +311,8 @@ def sinh(x):
 
 
 def _sinhV(x):
+    """Returns the sine_h of the AutoDiffVector object"""
+
     try:
         objects = []
         for i in range(len(x.objects)):
@@ -295,6 +326,7 @@ def _sinhV(x):
 
 
 def cosh(x):
+    """Returns the cosine_h of the AutoDiff or AutoDiffVector or AutoDiffReverse object"""
     
     if (type(x).__name__) is 'AutoDiffVector':
         return _coshV(x)
@@ -303,6 +335,7 @@ def cosh(x):
         var = x.var
         val = math.cosh(x.val)
         der = {k: math.sinh(x.val) * v for k, v in x.der.items()}
+        der = Counter(der)
         return sad.AutoDiff(var, val, der)
     except ValueError:
         print("Invalid value for mathematical function")
@@ -311,6 +344,7 @@ def cosh(x):
         return math.cosh(x)
 
 def _coshV(x):
+    """Returns the cosine_h of the AutoDiffVector object"""
     try:
         objects = []
         for i in range(len(x.objects)):
@@ -324,6 +358,7 @@ def _coshV(x):
 
 
 def tanh(x):
+    """Returns the tan_h of the AutoDiff or AutoDiffVector or AutoDiffReverse object"""
 
     if (type(x).__name__) is 'AutoDiffVector':
         return _tanhV(x)
@@ -332,6 +367,7 @@ def tanh(x):
         var = x.var
         val = math.tanh(x.val)
         der = {k: (1 / (cosh(x.val) ** 2)) * v for k, v in x.der.items()}
+        der = Counter(der)
         return sad.AutoDiff(var, val, der)
     except ValueError:
         print("Invalid value for mathematical function")
@@ -340,6 +376,7 @@ def tanh(x):
         return np.tanh(x)
 
 def _tanhV(x):
+    """Returns the tan_h of the AutoDiffVector object"""
     try:
         objects = []
         for i in range(len(x.objects)):
@@ -351,12 +388,14 @@ def _tanhV(x):
         print("Warning: For AutoDiff objects, please use the corresponding mathematical function: tanh(AD) instead of tanhV(AD)")
         return np.tanh(x)
 
-    
+      
 def sqrt(x):
+  """Returns the square root of the AutoDiff or AutoDiffVector or AutoDiffReverse object"""
   try:
     return x**0.5
   except:
     return np.sqrt(x)
 
 def logistic(x):
+  """Returns the AutoDiff or AutoDiffVector or AutoDiffReverse object passed through a sigmoid transformation"""
   return 1/(1+exp(-x))
