@@ -581,8 +581,18 @@ def test_gt():
 	assert (x1 > 10) == False
 
 
+def test_jacobian():
+    g = sad.AutoDiff('g', 3)
+    h = sad.AutoDiff('h', -4)
+    i = sad.AutoDiff('i', 7)
 
+    # Create functions
+    f1 = g+ 4
+    f2 = h**2 + 2*h - 12
 
-
-
+    variables = ['g', 'h', 'i']
+    functions = [f1, f2]
+    assert sad.jacobian(variables, functions) ==array([[ 1.,  0.,  0.],[ 0., -6., -1.]])
+    
+	
 
