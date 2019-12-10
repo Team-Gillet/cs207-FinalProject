@@ -386,7 +386,7 @@ def _tanhV(x):
 
 def _tanhR(x):
     """Returns the sin_h of the AutoDiffReverse object"""
-    der = {x.var : 1/(cosh(x.val) ** 2}
+    der = {x.var : 1/(cosh(x.val) ** 2)}
     der = Counter(der)
     return sad.AutoDiffReverse(np.tanh(x.val), None, der)
       
