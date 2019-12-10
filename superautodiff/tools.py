@@ -1,5 +1,5 @@
 import superautodiff as sad
-
+import numpy as np
 
 def jacobian(variables, functions):
     """Returns the Jacobian matrix containing the first derivative of each input function with respect to each input variable"""
